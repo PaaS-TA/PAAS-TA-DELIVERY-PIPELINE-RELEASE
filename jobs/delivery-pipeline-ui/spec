@@ -1,0 +1,76 @@
+---
+name: delivery-pipeline-ui
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-ui
+properties:
+  pipeline_ui.http.multipart.max_file_size:
+    description: 'multipart max file size'
+    default: '1000Mb'
+  pipeline_ui.http.multipart.max_request_size:
+    description: 'multipart max request size'
+    default: '1000Mb'
+  pipeline_ui.server.port:
+    description: 'api server port'
+    default: 8080
+  pipeline_ui.logging.level:
+    description: 'logging level'
+    default: 'DEBUG'
+  common_api.url:
+    description: 'common api url'
+  common_api.authorization.id:
+    description: 'common api authorization id'
+  common_api.authorization.password:
+    description: 'common api authorization password'
+  pipeline_api.url:
+    description: 'delivery pipeline api url'
+  pipeline_api.authorization.id:
+    description: 'delivery pipeline api authorization id'
+  pipeline_api.authorization.password:
+    description: 'delivery pipeline api authorization password'
+  inspection_api.url:
+    description: 'inspection api url'
+  inspection_api.authorization.id:
+    description: 'inspection api authorization id'
+  inspection_api.authorization.password:
+    description: 'inspection api authorization password'
+  binary_storage_api.url:
+    description: 'binary storage api url'
+  binary_storage_api.authorization.id:
+    description: 'binary storage api authorization id'
+  binary_storage_api.authorization.password:
+    description: 'binary storage api authorization password'
+  cf.uaa.oauth.info.uri:
+    description: 'cf uaa oauth info uri'
+  cf.uaa.oauth.token.check.uri:
+    description: 'cf uaa oauth token check uri'
+  cf.uaa.oauth.token.access.uri:
+    description: 'cf uaa oauth token access uri'
+  cf.uaa.oauth.logout.uri:
+    description: 'cf uaa oauth logout uri'
+  cf.uaa.oauth.authorization.uri:
+    description: 'cf uaa oauth authorization uri'
+  cf.uaa.oauth.client.id:
+    description: 'cf uaa oauth client id'
+  cf.uaa.oauth.client.secret:
+    description: 'cf uaa oauth client secret'
+  cf.api.url:
+    description: 'cf api url'
+  common_api.server.port:
+    description: 'common api server port'
+  pipeline_api.server.port:
+    description: 'pipeline api server port'
+  inspection_api.server.port:
+    description: 'inspection api server port'
+  binary_storage_api.server.port:
+    description: 'binary storage api server port'
+  pipeline_ui.java_opts:
+    description: 'java option'

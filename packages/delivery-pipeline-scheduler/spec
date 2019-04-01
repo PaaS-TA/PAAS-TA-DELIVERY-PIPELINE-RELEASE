@@ -1,0 +1,8 @@
+---
+name: delivery-pipeline-scheduler
+
+dependencies: []
+
+files:
+- delivery-pipeline-scheduler/delivery-pipeline-scheduler.jar
+

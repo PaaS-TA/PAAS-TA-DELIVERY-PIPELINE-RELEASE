@@ -1,0 +1,5 @@
+check process delivery-pipeline-binary-storage-api
+  with pidfile /var/vcap/sys/run/delivery-pipeline-binary-storage-api/delivery-pipeline-binary-storage-api.pid
+  start program "/var/vcap/jobs/delivery-pipeline-binary-storage-api/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-binary-storage-api/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/delivery-pipeline-binary-storage-api/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-binary-storage-api/bin/service_ctl stop'"
+  group vcap

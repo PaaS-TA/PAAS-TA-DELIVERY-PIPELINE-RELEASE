@@ -1,0 +1,65 @@
+server:
+  port: <%= p('pipeline_service_broker.server.port')%>
+
+spring:
+  application:
+    name: delivery-pipeline-service-broker
+  datasource:
+    url: jdbc:mysql://<%= p('mariadb.host')%>:<%= p('mariadb.port')%>/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+    username: "<%= p('mariadb.datasource.username')%>"
+    password: "<%= p('mariadb.datasource.password')%>"
+  jpa:
+    hibernate:
+      ddl-auto: none
+      database: "<%= p('mariadb.jpa.database.name')%>"
+      show-sql: true
+
+
+logging:
+  level:
+    ROOT:
+      org:
+        openpaas:
+          servicebroker:
+            controller: <%= p('pipeline_service_broker.logging.controller.level')%>
+        paasta:
+          servicebroker:
+            deliverypipeline:
+              service: <%= p('pipeline_service_broker.logging.service.level')%>
+
+service:
+  dashboard:
+    url: <%= p('pipeline_service_broker.dashboard.url')%>
+
+
+paasta:
+  delivery:
+    pipeline:
+      api:
+        url: <%= p('common_api.url')%>:<%= p('common_api.server.port')%>
+        username:
+        password:
+
+ci:
+  server:
+    shared:
+      urls: '<%= p('ci_server.shared.urls')%>'
+    dedicated:
+      urls: '<%= p('ci_server.dedicated.urls')%>'
+
+serviceDefinition:
+  id: <%= p('pipeline_service_broker.serviceDefinition.id')%>
+  name: <%= p('pipeline_service_broker.serviceDefinition.name')%>
+  desc: "<%= p('pipeline_service_broker.serviceDefinition.desc')%>"
+  bindable: <%= p('pipeline_service_broker.serviceDefinition.bindable')%>
+  planupdatable: <%= p('pipeline_service_broker.serviceDefinition.planupdatable')%>
+  plan1: 
+    id: <%= p('pipeline_service_broker.serviceDefinition.plan1.id')%>
+    name: <%= p('pipeline_service_broker.serviceDefinition.plan1.name')%>
+    desc: "<%= p('pipeline_service_broker.serviceDefinition.plan1.desc')%>"
+    type: <%= p('pipeline_service_broker.serviceDefinition.plan1.type')%>
+  plan2:
+    id: <%= p('pipeline_service_broker.serviceDefinition.plan2.id')%>
+    name: <%= p('pipeline_service_broker.serviceDefinition.plan2.name')%>
+    desc: "<%= p('pipeline_service_broker.serviceDefinition.plan2.desc')%>"
+    type: <%= p('pipeline_service_broker.serviceDefinition.plan2.type')%>

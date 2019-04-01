@@ -1,0 +1,119 @@
+global
+    daemon
+    pidfile /var/vcap/sys/run/haproxy_dev/haproxy_dev.pid
+    maxconn 100000
+
+defaults
+    mode http
+    timeout connect 5000ms
+    timeout client 50000ms
+    timeout server 50000ms
+    stats enable
+    stats uri /admin
+
+
+# DELIVERY PIPELINE HAPROXY DEFAULT
+frontend http-in
+    mode http
+    bind *:<%= p('haproxy.http_port')%>
+    default_backend pipeline_ui_servers
+
+
+
+
+
+# DELIVERY PIPELINE WEB UI
+frontend http-in-pipeline_ui
+    mode http
+    bind *:<%= p('pipeline_ui.server.port')%>
+    default_backend pipeline_ui_servers
+
+backend pipeline_ui_servers
+    mode http
+<% p('pipeline_ui.haproxy.urls').each_with_index do |ip, index| %>
+    server server-<%= index %> <%= ip %>:<%= p('pipeline_ui.server.port') %>
+<% end %>
+
+
+# DELIVERY PIPELINE COMMON API
+frontend http-in-common_api
+    mode http
+    bind *:<%= p('common_api.server.port')%>
+    default_backend common_api_servers
+
+backend common_api_servers
+    mode http
+<% p('common_api.haproxy.urls').each_with_index do |ip, index| %>
+    server server-<%= index %> <%= ip %>:<%= p('common_api.server.port') %>
+<% end %>
+
+
+# DELIVERY PIPELINE API
+frontend http-in-pipeline_ap
+    mode http
+    bind *:<%= p('pipeline_api.server.port')%>
+    default_backend pipeline_api_servers
+
+backend pipeline_api_servers
+    mode http
+<% p('pipeline_api.haproxy.urls').each_with_index do |ip, index| %>
+    server server-<%= index %> <%= ip %>:<%= p('pipeline_api.server.port') %>
+<% end %>
+
+
+# DELIVERY PIPELINE INSPECTION API
+frontend http-in-inspection_api
+    mode http
+    bind *:<%= p('inspection_api.server.port')%>
+    default_backend inspection_api_servers
+
+backend inspection_api_servers
+    mode http
+<% p('inspection_api.haproxy.urls').each_with_index do |ip, index| %>
+    server server-<%= index %> <%= ip %>:<%= p('inspection_api.server.port') %>
+<% end %>
+
+
+
+# CI_SERVER_ONE
+frontend http-in-ci-servers
+mode http
+bind *:<%= p('ci_server.http_port')%>
+default_backend ci_servers
+
+backend ci_servers
+mode http
+<% p('ci_server.haproxy.urls').each_with_index do |ip, index| %>
+  server server-<%= index %> <%= ip %>:<%= p('ci_server.http_port') %>
+<% end %>
+
+
+# INSEPTION
+frontend http-in-inspection-servers
+mode http
+bind *:<%= p('inspection.http_port')%>
+default_backend inspection_servers
+
+backend inspection_servers
+mode http
+<% p('inspection.haproxy.urls').each_with_index do |ip, index| %>
+  server server-<%= index %> <%= ip %>:<%= p('inspection.http_port') %>
+<% end %>
+
+
+# MARIA_DB
+listen mariadb-in
+bind *:<%= p('mariadb.port')%>
+mode tcp
+<% p('mariadb.haproxy.urls').each_with_index do |ip, index| %>
+  server server-<%= index %> <%= ip %>:<%= p('mariadb.port') %>
+<% end %>
+
+
+# POSTGRES_DB
+listen postgres-in
+bind *:<%= p('postgres.port')%>
+mode tcp
+<% p('postgres.haproxy.urls').each_with_index do |ip, index| %>
+  server server-<%= index %> <%= ip %>:<%= p('postgres.port') %>
+<% end %>

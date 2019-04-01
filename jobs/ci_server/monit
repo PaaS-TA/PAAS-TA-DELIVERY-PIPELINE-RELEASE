@@ -1,0 +1,5 @@
+check process jenkins_master
+  with pidfile /var/vcap/sys/run/ci_server/jenkins_master.pid
+  start program "/var/vcap/jobs/ci_server/bin/monit_debugger jenkins_master_ctl '/var/vcap/jobs/ci_server/bin/jenkins_master_ctl start'" with timeout 120 seconds
+  stop program "/var/vcap/jobs/ci_server/bin/monit_debugger jenkins_master_ctl '/var/vcap/jobs/ci_server/bin/jenkins_master_ctl stop'"
+  group vcap

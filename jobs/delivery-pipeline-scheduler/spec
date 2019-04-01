@@ -1,0 +1,85 @@
+---
+name: delivery-pipeline-scheduler
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-scheduler
+  - sshpass
+properties:
+  pipeline_scheduler.quartz.scheduler.instance_name:
+    description: 'scheduler quartz scheduler instance name'
+  pipeline_scheduler.quartz.scheduler.instance_id:
+    description: 'scheduler quartz scheduler instance id'
+  pipeline_scheduler.quartz.thread_pool.thread_count:
+    description: 'scheduler quartz thread_pool thread count'
+  pipeline_scheduler.job.start_delay:
+    description: 'scheduler job start delay'
+  pipeline_scheduler.job.repeat_interval:
+    description: 'scheduler job repeat interval'
+  pipeline_scheduler.job.description:
+    description: 'scheduler job description'
+  pipeline_scheduler.job.key:
+    description: 'scheduler job key'
+  pipeline_scheduler.java_opts:
+    description: 'java option'
+  mariadb.datasource.url:
+    description: 'database server ip'
+    default: 'localhost'
+  mariadb.datasource.username:
+    description: 'database username'
+    default: ''
+  mariadb.datasource.password:
+    description: 'database password'
+    default: ''
+  mariadb.datasource.driver_class_name:
+    description: 'datasource driver name'
+    default: 'com.mysql.cj.jdbc.Driver'
+  mariadb.jpa.database.name:
+    description: 'jpa database name'
+    default: 'mysql'
+  pipeline_scheduler.server.port:
+    description: 'scheduler server port'
+    default: 8080
+  pipeline_scheduler.logging.level:
+    description: 'scheduler logging level'
+    default: 'DEBUG'
+  common_api.url:
+    description: 'common api url'
+  common_api.server.port:
+    description: 'common api server port'
+  common_api.authorization.id:
+    description: 'common api authorization id'
+  common_api.authorization.password:
+    description: 'common api authorization password'
+  pipeline_api.url:
+    description: 'delivery pipeline api url'
+  pipeline_api.server.port:
+    description: 'pipeline api server port'
+  pipeline_api.authorization.id:
+    description: 'delivery pipeline api authorization id'
+  pipeline_api.authorization.password:
+    description: 'delivery pipeline api authorization password'
+  cf.uaa.oauth.info.uri:
+    description: 'cf uaa oauth info uri'
+  cf.uaa.oauth.token.check.uri:
+    description: 'cf uaa oauth token check uri'
+  cf.uaa.oauth.token.access.uri:
+    description: 'cf uaa oauth token access uri'
+  cf.uaa.oauth.logout.uri:
+    description: 'cf uaa oauth logout uri'
+  cf.uaa.oauth.authorization.uri:
+    description: 'cf uaa oauth authorization uri'
+  cf.uaa.oauth.client.id:
+    description: 'cf uaa oauth client id'
+  cf.uaa.oauth.client.secret:
+    description: 'cf uaa oauth client secret'
+  cf.api.url:
+    description: 'cf api url'
+

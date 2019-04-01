@@ -1,0 +1,38 @@
+---
+name: delivery-pipeline-common-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-common-api
+properties:
+  mariadb.datasource.url:
+    description: 'database server ip'
+    default: 'localhost'
+  mariadb.datasource.username:
+    description: 'database username'
+    default: ''
+  mariadb.datasource.password:
+    description: 'database password'
+    default: ''
+  mariadb.datasource.driver_class_name:
+    description: 'datasource driver name'
+    default: 'com.mysql.cj.jdbc.Driver'
+  mariadb.jpa.database.name:
+    description: 'jpa database name'
+    default: 'mysql'
+  common_api.server.port:
+    description: 'api server port'
+    default: 8080
+  common_api.logging.level:
+    description: 'logging level'
+    default: 'DEBUG'
+  common_api.java_opts:
+    description: 'java option'
+

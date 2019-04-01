@@ -1,0 +1,28 @@
+---
+name: inspection
+templates:
+  bin/pre-start: bin/pre-start
+  bin/sonarqube_ctl: bin/sonarqube_ctl
+  conf/sonar.properties.erb: conf/sonar.properties
+  conf/wrapper.conf: conf/wrapper.conf
+packages:
+  - java
+  - sonarqube
+
+properties:
+  postgres.host:
+    description: 'database server ip'
+    default: 'localhost'
+  postgres.port:
+    description: 'database server port'
+    default: 5432
+  postgres.datasource.username:
+    description: 'database user name'
+  postgres.datasource.password:
+    description: 'database password'
+  postgres.datasource.url:
+    description: 'database jdbc url'
+  inspection.http_port:
+    description: 'inspection server port'
+    default: 9000
+  

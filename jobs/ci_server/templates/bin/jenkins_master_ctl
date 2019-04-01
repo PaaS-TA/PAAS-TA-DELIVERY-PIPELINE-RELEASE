@@ -1,0 +1,95 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+JOB_NAME=ci_server
+export PACKAGE_NAME=ci-server
+
+# Setup env vars and folders for the webapp_ctl script
+source /var/vcap/jobs/$JOB_NAME/helpers/ctl_setup.sh $JOB_NAME
+
+export PATH=/var/vcap/packages/git/bin:$PATH
+export PATH=/var/vcap/packages/cf-cli/bin:$PATH
+#export PATH=/var/vcap/packages/bosh-cli/bin:$PATH
+#export GOROOT=$(readlink -nf /var/vcap/packages/golang1.3)
+#export PATH=$GOROOT/bin:$PATH
+#export GEM_PATH=/var/vcap/packages/bosh-cli/vendor/bundle/ruby/2.2.0
+
+export LANG=en_US.UTF-8
+export JENKINS_HOME=/var/vcap/store/$JOB_NAME
+
+java_binary=/var/vcap/packages/java/bin/java
+jenkins_war=/var/vcap/packages/$PACKAGE_NAME/jenkins.war
+
+case $1 in
+
+  start)
+    echo "####### CI SERVER START BEGIN #######"
+
+    # PID GUARD
+    echo "PHASE 1 :: CI SERVER PID GUARD"
+    echo "PID_FILE LOCATION :: $PIDFILE"
+    pid_guard $PIDFILE $JOB_NAME
+
+    echo $$ > $PIDFILE
+
+    mkdir -p $JENKINS_HOME
+
+    #echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config
+    #sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+
+    flags=(
+      -Xmx512m -Xms512m -XX:PermSize=256m -XX:MaxPermSize=256m -XX:NewSize=128m
+      -Djava.io.tmpdir="$TMPDIR"
+      -Duser.timezone=Asia/Seoul
+      -Dhudson.DNSMultiCast.disabled=true
+      -jar $jenkins_war
+      --argumentsRealm.passwd.$ADMIN_USER=$ADMIN_PASSWORD
+      --argumentsRealm.roles.$ADMIN_USER=$ADMIN_USER
+      --httpPort=$PORT
+    )
+    
+    # TEMPORARY CI SERVER START
+    echo "PHASE 3 :: TEMPORARY CI SERVER :: START"
+    nohup chpst -u vcap:vcap $java_binary ${flags[*]} > /dev/null &
+
+    # TEMPORARY CI SERVER KILL
+    echo "PHASE 4 :: TEMPORARY CI SERVER :: KILL"
+    current_pid=$!
+    kill -9 $current_pid
+
+    # REAL CI SERVER INIT
+    echo "PHASE 5 :: REAL CI SERVER :: INIT :: COPY UPDATE FILES"
+    cp -R /var/vcap/packages/$PACKAGE_NAME/update_files/* $JENKINS_HOME
+
+    echo "PHASE 6 :: REAL CI SERVER :: INIT :: COPY CONFIG"
+    cp -f /var/vcap/jobs/$JOB_NAME/config/* $JENKINS_HOME
+
+    echo "PHASE 7 :: REAL CI SERVER :: INIT :: CHANGE OWNER AND OWNING GROUP"
+    chown -R vcap:vcap $JENKINS_HOME
+
+    # REAL CI SERVER START
+    echo "PHASE 8 :: REAL CI SERVER :: START"
+    nohup chpst -u vcap:vcap $java_binary ${flags[*]} > /dev/null &
+
+    echo "PHASE 9 :: REAL CI SERVER :: SAVE PID"
+    final_pid=$!
+    echo $final_pid > $PIDFILE
+
+    echo "PHASE 10 :: REAL CI SERVER :: START COMPLETED"
+    echo "####### CI SERVER START COMPLETED #######"
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+  *)
+    echo "Usage: jenkins_master_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0

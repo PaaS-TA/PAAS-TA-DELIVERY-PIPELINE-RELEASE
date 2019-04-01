@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+set -u
+
+JOB_NAME=postgres
+export PACKAGE_NAME=postgres
+
+# Setup env vars and folders for the webapp_ctl script
+source /var/vcap/jobs/$JOB_NAME/helpers/ctl_setup.sh $JOB_NAME
+
+export PRODUCT_HOME=/var/vcap/packages/$PACKAGE_NAME
+
+JOB_DIR=/var/vcap/jobs/$JOB_NAME
+STORE_DIR=/var/vcap/store
+PG_STORE_DIR=${STORE_DIR}/${PACKAGE_NAME}
+DATA_DIR=${PG_STORE_DIR}/data
+
+case $1 in
+
+  start)
+    echo "####### POSTGRES START BEGIN #######"
+
+    # PID GUARD
+    echo "PHASE 1 :: POSTGRES PID GUARD"
+    echo "PID_FILE LOCATION :: $PIDFILE"
+    pid_guard $PIDFILE $JOB_NAME
+    
+    # COPY config file
+    cp "${JOB_DIR}/data/postgresql.conf" "${JOB_DIR}/data/pg_hba.conf" "${DATA_DIR}"
+    
+    # REAL POSTGRES START
+    echo "PHASE 5 :: POSTGRES :: START"
+    su - vcap -c "$PRODUCT_HOME/bin/pg_ctl -D $DATA_DIR start"
+
+    echo $! > $PIDFILE
+    echo "Starting 6 :: PIDFILE :: $PIDFILE"
+    echo "SUCCESS :: Starting :: ${JOB_NAME}"
+
+    echo "####### POSTGRES START COMPLETED #######"
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+  *)
+    echo "Usage: postgres_ctl {start|stop}"
+
+    ;;
+
+esac
+exit 0
+

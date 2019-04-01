@@ -1,0 +1,76 @@
+---
+name: delivery-pipeline-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  data/key.pem.erb: data/key.pem
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-api
+properties:
+  pipeline_api.http.multipart.max_file_size:
+    description: 'multipart max file size'
+    default: '1000Mb'
+  pipeline_api.http.multipart.max_request_size:
+    description: 'multipart max request size'
+    default: '1000Mb'
+  pipeline_api.server.port:
+    description: 'api server port'
+    default: 8080
+  pipeline_api.logging.level:
+    description: 'logging level'
+    default: 'DEBUG'
+  pipeline_api.java_opts:
+    description: 'java_option'
+  common_api.url:
+    description: 'common api url'
+  common_api.authorization.id:
+    description: 'common api authorization id'
+  common_api.authorization.password:
+    description: 'common api authorization password'
+  inspection_api.url:
+    description: 'inspection api url'
+  inspection_api.authorization.id:
+    description: 'inspection api authorization id'
+  inspection_api.authorization.password:
+    description: 'inspection api authorization password'
+  binary_storage_api.url:
+    description: 'binary storage api url'
+  binary_storage_api.authorization.id:
+    description: 'binary storage api authorization id'
+  binary_storage_api.authorization.password:
+    description: 'binary storage api authorization password'
+  ci_server.admin_user.username:
+    description: 'ci server admin username'
+  ci_server.admin_user.password:
+    description: 'ci server admin password'
+  ci_server.ssh.username:
+    description: 'ci server ssh username'
+  ci_server.ssh.password:
+    description: 'ci server ssh password'
+  ci_server.ssh.port:
+    description: 'ci server ssh port'
+    default: 22
+  ci_server.ssh.identity:
+    description: 'ssh identity path'
+  ci_server.ssh.key:
+    description: 'ssh key'
+  ci_server.credentials.scope:
+    description: 'ci server credentials scope'
+  ci_server.credentials.url:
+    description: 'ci server credentials url'
+  ci_server.credentials.class_name:
+    description: 'ci server credentials class name'
+  ci_server.job.name:
+    description: 'ci server job name'
+  common_api.server.port:
+    description: 'common api server port'
+  inspection_api.server.port:
+    description: 'inspection api server port'
+  binary_storage_api.server.port:
+    description: 'binary storage api server port'

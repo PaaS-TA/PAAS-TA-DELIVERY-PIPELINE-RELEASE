@@ -1,0 +1,5 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+
+unzip delivery-pipeline-ui/delivery-pipeline-ui.war -d ${BOSH_INSTALL_TARGET}

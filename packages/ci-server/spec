@@ -1,0 +1,6 @@
+---
+name: ci-server
+dependencies: [] # no compile dependencies
+files:
+- jenkins/jenkins.war
+- jenkins/update_files.tar.gz

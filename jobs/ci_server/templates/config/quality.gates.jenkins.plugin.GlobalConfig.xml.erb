@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<quality.gates.jenkins.plugin.GlobalConfig plugin="quality-gates@2.5">
+  <listOfGlobalConfigData>
+    <quality.gates.jenkins.plugin.GlobalConfigDataForSonarInstance>
+      <name>sonarqube-5.6.7</name>
+      <username>admin</username>
+      <sonarUrl><%= p('inspection.http_url') %>:<%= p('inspection.http_port') %></sonarUrl>
+      <secretPass>{AQAAABAAAAAQzNlhoM8tk0EfTvIEF+Q0b0wa+f9c2wI1ztjg2jO6V4A=}</secretPass>
+    </quality.gates.jenkins.plugin.GlobalConfigDataForSonarInstance>
+  </listOfGlobalConfigData>
+  <globalConfigurationService>
+    <listOfGlobalConfigInstances reference="../../listOfGlobalConfigData"/>
+  </globalConfigurationService>
+</quality.gates.jenkins.plugin.GlobalConfig>

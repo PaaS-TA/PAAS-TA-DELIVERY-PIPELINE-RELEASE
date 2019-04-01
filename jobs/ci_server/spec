@@ -1,0 +1,40 @@
+---
+name: ci_server
+
+packages:
+- java 
+- gradle-2.14.1
+- gradle-3.5
+- git
+- cf-cli
+- maven
+- sshpass
+- ci-server
+
+templates:
+  bin/jenkins_master_ctl: bin/jenkins_master_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh.erb: data/properties.sh
+  config/jenkins.model.JenkinsLocationConfiguration.xml.erb: config/jenkins.model.JenkinsLocationConfiguration.xml
+  config/hudson.plugins.sonar.SonarGlobalConfiguration.xml.erb: config/hudson.plugins.sonar.SonarGlobalConfiguration.xml
+  config/quality.gates.jenkins.plugin.GlobalConfig.xml.erb: config/quality.gates.jenkins.plugin.GlobalConfig.xml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+properties:
+  ci_server.admin_user.username:
+    description: "CI server admin user username"
+  ci_server.admin_user.password:
+    description: "CI server admin user password"
+  ci_server.http_url:
+    description: "CI server http url"
+  ci_server.http_port:
+    description: "CI server http port"
+    default: 8088
+  ci_server.ajp13_port:
+    description: "CI server AJP13 protocal port"
+    default: 8009
+  inspection.http_url:
+    description: "Inspection server http url"
+  inspection.http_port:
+    description: "Inspection server http port"

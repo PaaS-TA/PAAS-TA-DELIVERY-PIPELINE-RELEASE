@@ -1,0 +1,31 @@
+#!/bin/bash
+set -e
+set -u
+
+SONARQUBE_VERSION=5.6.7
+JOB_NAME=inspection
+PKG_NAME=sonarqube
+
+#source /var/vcap/jobs/$JOB_NAME/helpers/ctl_setup.sh $JOB_NAME
+
+export PRODUCT_HOME=/var/vcap/packages/$PKG_NAME/sonarqube-$SONARQUBE_VERSION
+
+case $1 in
+
+  start)
+    #pid_guard $PIDFILE $JOB_NAME
+    $PRODUCT_HOME/bin/linux-x86-64/sonar.sh start > /dev/null &
+
+    # store pid in $PIDFILE
+    # echo $! > $PIDFILE
+    ;;
+
+  stop)
+   # kill_and_wait $PIDFILE
+   $PRODUCT_HOME/bin/linux-x86-64/sonar.sh stop
+    ;;
+  *)
+    echo "Usage: SonarQube {start|stop}"
+
+    ;;
+esac

@@ -1,0 +1,7 @@
+---
+name: delivery-pipeline-ui
+
+dependencies: []
+
+files:
+- delivery-pipeline-ui/delivery-pipeline-ui.war

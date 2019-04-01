@@ -1,0 +1,6 @@
+check process delivery-pipeline-service-broker
+  with pidfile /var/vcap/sys/run/delivery-pipeline-service-broker/delivery-pipeline-service-broker.pid
+  start program "/var/vcap/jobs/delivery-pipeline-service-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-service-broker/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/delivery-pipeline-service-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-service-broker/bin/service_ctl stop'"
+  group vcap
+

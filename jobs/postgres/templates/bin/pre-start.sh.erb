@@ -1,0 +1,50 @@
+#!/bin/bash
+set -e
+set -u
+
+PACKAGE_NAME=postgres
+
+STORE_DIR=/var/vcap/store
+PG_STORE_DIR=${STORE_DIR}/${PACKAGE_NAME}
+PACKAGE_DIR=/var/vcap/packages/${PACKAGE_NAME}
+
+DATA_DIR=${PG_STORE_DIR}/data
+RUN_DIR=/var/vcap/sys/run/${PACKAGE_NAME}
+LOG_DIR=/var/vcap/sys/log/${PACKAGE_NAME}
+
+PACKAGE_DATA_DIR=/var/vcap/data/packages/${PACKAGE_NAME}
+JOB_DATA_DIR=/var/vcap/data/jobs/${PACKAGE_NAME}
+JOB_DIR=/var/vcap/jobs/${PACKAGE_NAME}/data
+
+function init_data_dir(){
+  if [ ! -f "${DATA_DIR}/postgresql.conf" ]; then
+    # initdb creates data directories
+    su - vcap -c "${PACKAGE_DIR}/bin/initdb -D ${DATA_DIR}"
+  fi
+}
+
+function main() {
+  echo "Checking PostgreSQL pre start"
+  mkdir -p "${PG_STORE_DIR}"
+  chown -R vcap:vcap "${PG_STORE_DIR}"
+  chmod 700 "${PG_STORE_DIR}"
+
+  chown -R vcap:vcap "${PACKAGE_DATA_DIR}"
+  chown -R vcap:vcap "${JOB_DATA_DIR}"
+
+  init_data_dir
+
+  mkdir -p "${LOG_DIR}"
+  chown -R vcap:vcap "${LOG_DIR}"
+
+  mkdir -p "${RUN_DIR}"
+  chown -R vcap:vcap "${RUN_DIR}"
+
+  chmod 777 "${JOB_DIR}/postgresql-init.sh"
+  chmod 777 "${JOB_DIR}/postgresql.sql"
+  sysctl -w "kernel.shmmax=284934144"
+}
+
+
+main
+

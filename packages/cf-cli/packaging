@@ -1,0 +1,18 @@
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+# Available variables
+# $BOSH_COMPILE_TARGET - where this package & spec'd source files are available
+# $BOSH_INSTALL_TARGET - where you copy/install files to be included in package
+
+#this is already compiled
+tar -xvf cf-cli/cf-cli_6.26.0_linux_x86-64.tgz
+
+BIN_DIR=${BOSH_INSTALL_TARGET}/bin
+
+mkdir -p ${BIN_DIR}
+
+cp cf ${BIN_DIR}/cf
+
+# Backwards compatability - this used to be called gcf
+ln -s $BOSH_INSTALL_TARGET/bin/cf $BOSH_INSTALL_TARGET/bin/gcf

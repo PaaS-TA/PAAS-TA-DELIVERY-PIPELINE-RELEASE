@@ -1,0 +1,13 @@
+#!/bin/bash
+
+JOB_NAME=inspection
+PKG_NAME=sonarqube
+SONARQUBE_VERSION=5.6.7
+PID_LOCATION=/var/vcap/sys/run/
+
+# set sonarqube pid directory
+sudo sed -i 's|PIDDIR="."|PIDDIR="/var/vcap/sys/run/"|' /var/vcap/packages/$PKG_NAME/sonarqube-$SONARQUBE_VERSION/bin/linux-x86-64/sonar.sh
+
+cp -f /var/vcap/jobs/$JOB_NAME/conf/sonar.properties /var/vcap/jobs/$JOB_NAME/packages/$PKG_NAME/sonarqube-$SONARQUBE_VERSION/conf/sonar.properties
+
+cp -f /var/vcap/jobs/$JOB_NAME/conf/wrapper.conf /var/vcap/jobs/$JOB_NAME/packages/$PKG_NAME/sonarqube-$SONARQUBE_VERSION/conf/wrapper.conf

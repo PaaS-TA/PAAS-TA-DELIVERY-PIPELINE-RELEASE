@@ -1,0 +1,55 @@
+---
+name: delivery-pipeline-binary-storage-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-binary-storage-api
+properties:
+  binary_storage_api.http.multipart.max_file_size:
+    description: 'multipart max file size'
+    default: '1000Mb'
+  binary_storage_api.http.multipart.max_request_size:
+    description: 'multipart max request size'
+    default: '1000Mb'
+  binary_storage_api.server.port:
+    description: 'api server port'
+    default: 8080
+  binary_storage_api.logging.level:
+    description: 'logging level'
+    default: 'DEBUG'
+  binary_storage_api.java_opts:
+    description: 'java option'
+  common_api.url:
+    description: 'common api url'
+  common_api.server.port:
+    description: 'common api server port'
+  common_api.authorization.id:
+    description: 'common api authorization id'
+  common_api.authorization.password:
+    description: 'common api authorization password'
+  binary_storage.proxy_ip:
+    description: 'binary_storage proxy ip'
+  binary_storage.proxy_port:
+    description: 'binary_storage proxy port'
+    default: 10008
+  binary_storage.default_username:
+    description: 'binary storage default username'
+  binary_storage.default_password:
+    description: 'binary storage default password'
+  binary_storage.default_tenantname:
+    description: 'binary storage default tenantname'
+  binary_storage.default_email:
+    description: 'binary storage default email'
+  binary_storage.container:
+    description: 'binary storage container'
+  binary_storage.auth_port:
+    description: 'binary storage auth _port'
+    default: 5000
+

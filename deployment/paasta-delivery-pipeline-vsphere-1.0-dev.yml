@@ -1,0 +1,524 @@
+---
+name: paasta-delivery-pipeline-dev                              # 서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
+director_uuid: <%= `bosh status --uuid` %>                  # Director UUID을 입력(필수) bosh status 명령으로 확인 가능
+ 
+releases:
+- name: paasta-delivery-pipeline-release                    # 서비스 릴리즈 이름(필수) bosh releases로 확인 가능
+  version: latest                                              # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+ 
+compilation:                                                # 컴파일시 필요한 가상머신의 속성(필수)
+  workers: 6                                                # 컴파일 하는 가상머신의 최대수(필수)
+  network: default                                          # Networks block에서 선언한 network 이름(필수)
+  reuse_compilation_vms: true
+  cloud_properties:                                         # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성 (instance_type, availability_zone), 직접 cpu,disk,ram 사이즈를 넣어도 됨
+    ram: 4096
+    disk: 8192
+    cpu: 4
+ 
+update:
+  canaries: 1                                               # canary 인스턴스 수(필수)
+  canary_watch_time: 5000-120000                            # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 5000-120000                            # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 1                                          # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  serial: false
+ 
+networks:                                                   # 네트워크 블록에 나열된 각 서브 블록이 참조 할 수있는 작업이 네트워크 구성을 지정, 네트워크 구성은 네트워크 담당자에게 문의 하여 작성 요망
+- name: default
+  subnets:
+  - cloud_properties:
+      name: Internal                                        # vsphere 에서 사용하는 network 이름(필수)
+    dns:                                                    # DNS 정보
+    - 8.8.8.8
+    gateway: 10.30.20.23
+    name: default_unusedls
+    range: 10.30.0.0/16
+    reserved:                                               # 설치시 제외할 IP 설정
+    - 10.30.0.0 - 10.30.131.19
+    static:
+    - 10.30.131.20 - 10.30.131.35                          # 사용 가능한 IP 설정
+
+- name: public_network                                      # public network 설정
+  type: manual
+  subnets:
+  - cloud_properties:
+      name: External
+    dns:
+    - 8.8.8.8
+    gateway: 115.68.46.209
+    range: 115.68.46.0/16
+    static:
+    - 115.68.46.182
+    - 115.68.46.184
+resource_pools:                                             # 배포시 사용하는 resource pools를 명시하며 여러 개의 resource pools 을 사용할 경우 name 은 unique 해야함(필수)
+  - name: small                                             # 고유한 resource pool 이름
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent        # stemcell 이름(필수)
+      version: 3468.21                                       # stemcell 버전(필수)
+    cloud_properties:                                       # 컴파일 VM을 만드는 데 필요한 IaaS의 특정 속성을 설명 (instance_type, availability_zone), 직접 cpu, disk, 메모리 설정가능
+      cpu: 1
+      disk: 4096
+      ram: 2048
+    env:
+      bosh: 
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+  - name: small_api 
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent 
+      version: 3468.21
+    cloud_properties: 
+      cpu: 1
+      disk: 4096
+      ram: 1024
+    env:
+      bosh: 
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+  
+  - name: medium 
+    network: default
+    stemcell:
+      name: bosh-vsphere-esxi-ubuntu-trusty-go_agent 
+      version: 3468.21
+    cloud_properties: 
+      cpu: 1
+      disk: 4096
+      ram: 4096
+    env:
+      bosh: 
+        password: $6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0
+ 
+jobs:
+########## INFRA ##########
+#- name: mariadb
+#  instances: 1
+#  resource_pool: small
+#  persistent_disk: 2048
+#  networks:
+#  - name: default
+#    static_ips:
+#    - 10.30.131.31
+#  templates:
+#  - name: mariadb
+#    release: paasta-delivery-pipeline-release
+#  update:
+#    max_in_flight: 1
+#    serial: true
+#
+#- name: postgres
+#  instances: 1
+#  resource_pool: small
+#  persistent_disk: 4096
+#  networks:
+#  - name: default
+#    static_ips:
+#    - 10.30.131.32
+#  templates:
+#  - name: postgres
+#    release: paasta-delivery-pipeline-release
+#  update:
+#    max_in_flight: 1
+#    serial: true
+ 
+- name: inspection
+  instances: 1
+  resource_pool: small
+  networks:
+  - name: default
+    static_ips:
+    - 10.30.131.20
+  templates:
+  - name: inspection
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: haproxy
+  instances: 1
+  resource_pool: small
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.21
+  - name: public_network
+    default: [dns, gateway]
+    static_ips: 115.68.46.182
+  templates:
+  - name: haproxy_dev
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: ci_server
+  instances: 1
+  resource_pool: medium
+  persistent_disk: 4096
+  networks:
+  - name: default
+    static_ips:
+    - 10.30.131.22
+  - name: public_network
+    default: [dns, gateway]
+    static_ips: 115.68.46.184
+  templates:
+  - name: ci_server
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+#- name: binary_storage
+#  instances: 1
+#  persistent_disk: 10240
+#  resource_pool: medium
+#  networks:
+#  - name: default
+#    static_ips:
+#    - 10.30.131.23
+#  - name: public_network
+#    default: [dns, gateway]
+#    static_ips: 115.68.46.184
+#  templates:
+#  - name: binary_storage
+#    release: paasta-delivery-pipeline-release
+#  update:
+#    max_in_flight: 1
+#    serial: true
+ 
+########## WEB SERVICE ##########
+- name: delivery-pipeline-common-api
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.24
+  templates:
+  - name: delivery-pipeline-common-api
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-inspection-api
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.25
+  templates:
+  - name: delivery-pipeline-inspection-api
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-binary-storage-api
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.26
+  templates:
+  - name: delivery-pipeline-binary-storage-api
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-api
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.27
+  templates:
+  - name: delivery-pipeline-api
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-service-broker
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.28
+  templates:
+  - name: delivery-pipeline-service-broker
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-ui
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.29
+  templates:
+  - name: delivery-pipeline-ui
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+- name: delivery-pipeline-scheduler
+  instances: 1
+  resource_pool: small_api
+  networks:
+  - name: default
+    static_ips: 
+    - 10.30.131.30
+  templates:
+  - name: delivery-pipeline-scheduler
+    release: paasta-delivery-pipeline-release
+  update:
+    max_in_flight: 1
+    serial: true
+ 
+######### PROPERTIES ##########
+properties:
+  cf:                                                      # CLOUD FOUNDRY 설정 정보
+    uaa:
+      oauth:
+        info:
+          uri: https://uaa.115.68.46.187.xip.io/userinfo
+        token:
+          check:
+            uri: https://uaa.115.68.46.187.xip.io/check_token
+          access:
+            uri: https://uaa.115.68.46.187.xip.io/oauth/token
+        logout:
+          uri: https://uaa.115.68.46.187.xip.io/logout.do
+        authorization:
+          uri: https://uaa.115.68.46.187.xip.io/oauth/authorize
+        client:
+          id: pipeclient
+          secret: clientsecret
+    api:
+      url: https://api.115.68.46.187.xip.io/v2/service_instances/[SUID]/permissions
+ 
+  ci_server:                                               # CI SERVER 설정 정보
+    password: '!paas_ta202'
+    admin_user:
+      username: 'admin'
+      password: '!paas_ta202'
+    http_url: '115.68'
+    http_port: 8088
+    ajp13_port: 8009
+    ssh:
+      username: vcap
+      password: c1oudc0w
+      port: 22
+      identity: "null"                                     # PERM KEY 경로
+      key: "null"
+    credentials:
+      scope: "GLOBAL"
+      url: "/credentials/store/system/domain/_"
+      class_name: "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+    job:
+      name: "ci_server"                                    # JOB 이름과 동일하게 설정
+    shared:                                                # Shared 서비스 설정 정보
+      urls:
+        - http://115.68.46.184:8088
+    dedicated:                                             # Dedicated 서비스 설정 정보
+      urls:
+        - http://115.68.46.184:8088
+    haproxy:
+      urls:
+        - 10.30.111.98
+  mariadb:                                                 # MARIA DB SERVER 설정 정보
+    port: 3306
+    admin_user:
+      password: "!paas_ta202"
+    host: 10.30.20.101
+    host_names:
+    - mariadb0
+    host_ips:
+    - 10.30.20.101
+    datasource:
+      url: jdbc:mysql://10.30.20.101:3306/delivery_pipeline?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      username: root
+      password: "!paas_ta202"
+      driver_class_name: com.mysql.cj.jdbc.Driver
+    jpa:
+      database:
+        name: mysql
+    haproxy:
+        urls:
+          - 10.30.20.101
+ 
+  postgres:                                                # POSTGRESQL SERVER 설정 정보
+    port: 5432
+    host: 10.30.20.102
+    vcap_password: c1oudc0w
+    datasource:
+      url: jdbc:postgresql://10.30.20.102:5432/sonar
+      username: "sonar"
+      password: "sonar"
+      database: "sonar"
+    haproxy:
+      urls:
+        - 10.30.20.102
+  inspection:                                              # INSPECTION SERVER 설정 정보
+    url: 10.30.131.20
+    http_url: 'http://10.30.131.20'
+    http_port: 9000
+    admin:
+      username: admin
+      password: admin
+    haproxy:
+      urls:
+        - 10.30.131.20
+
+  binary_storage:                                          # BINARY STORAGE SERVER 설정 정보
+    proxy_ip: 115.68.46.218                                # 프록시 서버 IP(swift-keystone job의 static_ip, Object Storage 접속 IP)
+    proxy_port: 10008                                      # 프록시 서버 Port(Object Storage 접속 Port)
+    default_username: paasta-pipeline                      # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
+    default_password: paasta-pipeline                      # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
+    default_tenantname: paasta-pipeline                    # 최초 생성되는 테넌트 이름(Object Storage 접속 테넌트 이름)
+    default_email: email@email.com                         # 최소 생성되는 유저의 이메일
+    container: delivery-pipeline-container
+    auth_port: 5000
+
+  common_api:                                              # COMMON API 설정 정보
+    url: http://10.30.131.21 #HAPROXY URL
+    server:
+      port: 8081
+    authorization:
+      id: admin
+      password: PaaS-TA
+    logging:
+      level: INFO
+    haproxy:
+      urls:
+        - 10.30.131.24
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K' 
+ 
+  pipeline_api:                                            # CI API 설정 정보
+    url: http://10.30.131.21 #HAPROXY URL
+    server:
+      port: 8082
+    authorization:
+      id: admin
+      password: PaaS-TA
+    http:
+      multipart:
+        max_file_size: 1000Mb
+        max_request_size: 1000Mb
+    logging:
+      level: INFO
+    haproxy:
+      urls:
+        - 10.30.131.27
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+  
+  inspection_api:                                          # INSPECTION API 설정 정보
+    url: http://10.30.131.21 #HAPROXY URL
+    server:
+      port: 8083
+    http:
+      multipart:
+        max_file_size: 1000Mb
+        max_request_size: 1000Mb
+    logging:
+      level: INFO
+    authorization:
+      id: admin
+      password: PaaS-TA
+    haproxy:
+      urls:
+        - 10.30.131.25
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+ 
+  binary_storage_api:                                      # BINARY STORAGE API 설정 정보
+    http:
+      multipart:
+        max_file_size: 1000Mb
+        max_request_size: 1000Mb
+    server:
+      port: 8080
+    logging:
+      level: INFO
+    url: http://10.30.131.26
+    authorization:
+      id: admin
+      password: PaaS-TA
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+ 
+  pipeline_ui:                                              # UI 설정 정보
+    url: http://10.30.131.21 #HAPROXY URL
+    server:
+      port: 8084
+    http:
+      multipart:
+        max_file_size: 1000Mb
+        max_request_size: 1000Mb
+    logging:
+      level: INFO
+    haproxy:
+      urls:
+        - 10.30.131.29
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+ 
+  pipeline_scheduler:                                      # SCHEDULER 설정 정보
+    server:
+      port: 8080
+    logging:
+      level: INFO
+    quartz:
+      scheduler:
+        instance_name: paastaDeliveryPipelineScheduler
+        instance_id: AUTO
+      thread_pool:
+        thread_count: 5
+    job:
+      start_delay: 0
+      repeat_interval: 5000
+      description: PaaS-TA Delivery Pipeline Scheduler
+      key: StatisticsJob
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+
+  pipeline_service_broker:                                 # SERVICE BROKER 설정 정보
+    serviceDefinition:
+      id: af86588c-6212-11e7-907b-b6006ad3ddev
+      name: delivery-pipeline-v2
+      desc: 'A paasta source control service for application development.provision parameters : parameters {owner : owner}'
+      bindable: false
+      planupdatable: false
+      plan1:
+        id: a5930564-6212-11e7-907b-b6006ad3dev1
+        name: delivery-pipeline-shared
+        desc: 'This is a shared service plan. All services are created equally.'
+        type: A
+      plan2:
+        id: a5930564-6212-11e7-907b-b6006ad3dev2
+        name: delivery-pipeline-dedicated
+        desc: 'This is a dedicated service plan. All services are created equally.'
+        type: B
+    server:
+      port: 8080
+    logging:
+      controller:
+        level: INFO 
+      service:
+        level: INFO
+    dashboard:
+      url: http://115.68.46.182:8084/dashboard/[SUID]/
+    java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
+    
+  haproxy:                                                 # HAPROXY 설정 정보
+    url: 10.30.111.93 
+    http_port: 8080 
+

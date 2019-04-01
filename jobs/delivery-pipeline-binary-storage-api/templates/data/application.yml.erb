@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: paasta-delivery-pipeline-binary-storage-api
+  http:
+    multipart:
+      maxFileSize: <%= p('binary_storage_api.http.multipart.max_file_size')%>
+      maxRequestSize: <%= p('binary_storage_api.http.multipart.max_file_size')%>
+
+---
+#spring:
+#  profiles: dev
+
+server:
+  port: <%= p('binary_storage_api.server.port')%>
+
+logging:
+  level:
+    ROOT: <%= p('binary_storage_api.logging.level')%>
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+commonApi:
+  url: <%= p('common_api.url')%>:<%= p('common_api.server.port')%>
+  authorization:
+    id: "<%= p('common_api.authorization.id')%>"
+    password: "<%= p('common_api.authorization.password')%>"
+
+objectStorage:
+  tenantName: "<%= p('binary_storage.default_tenantname')%>"
+  username: "<%= p('binary_storage.default_username')%>"
+  password: "<%= p('binary_storage.default_password')%>"
+  container: "<%= p('binary_storage.container')%>"
+  authUrl: "http://<%= p('binary_storage.proxy_ip')%>:<%= p('binary_storage.auth_port')%>/v2.0"

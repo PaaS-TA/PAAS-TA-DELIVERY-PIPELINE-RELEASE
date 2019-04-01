@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+set -u
+
+PACKAGE_NAME=postgres
+
+JOB_DIR=/var/vcap/jobs/${PACKAGE_NAME}/data
+
+function main() {
+  echo "Checking PostgreSQL post start"
+
+  ${JOB_DIR}/postgresql-init.sh  
+
+  echo "Done PostgreSQL post"
+}
+
+
+main
+

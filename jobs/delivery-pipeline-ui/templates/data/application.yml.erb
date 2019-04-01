@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: paasta-delivery-pipeline-ui
+  http:
+    multipart:
+      maxFileSize: <%= p('pipeline_ui.http.multipart.max_file_size')%>
+      maxRequestSize: <%= p('pipeline_ui.http.multipart.max_request_size')%>
+
+---
+server:
+  port: <%= p('pipeline_ui.server.port')%>
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+  level:
+    ROOT: <%= p('pipeline_ui.logging.level')%>
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+commonApi:
+  url: <%= p('common_api.url')%>:<%= p('common_api.server.port')%>
+  authorization:
+    id: "<%= p('common_api.authorization.id')%>"
+    password: "<%= p('common_api.authorization.password')%>"
+
+deliveryPipelineApi:
+  url: <%= p('pipeline_api.url')%>:<%= p('pipeline_api.server.port')%>
+  authorization:
+    id: "<%= p('pipeline_api.authorization.id')%>"
+    password: "<%= p('pipeline_api.authorization.password')%>"
+
+inspectionApi:
+  url: <%= p('inspection_api.url')%>:<%= p('inspection_api.server.port')%>
+  authorization:
+    id: "<%= p('inspection_api.authorization.id')%>"
+    password: "<%= p('inspection_api.authorization.password')%>"
+
+binaryStorageApi:
+  url: <%= p('binary_storage_api.url')%>:<%= p('binary_storage_api.server.port')%>
+  authorization:
+    id: "<%= p('binary_storage_api.authorization.id')%>"
+    password: "<%= p('binary_storage_api.authorization.password')%>"
+
+cf:
+  uaa:
+    oauth:
+      info:
+        uri: <%= p('cf.uaa.oauth.info.uri')%>
+      token:
+        check:
+          uri: <%= p('cf.uaa.oauth.token.check.uri')%>
+        access:
+          uri: <%= p('cf.uaa.oauth.token.access.uri')%>
+      logout:
+        url: <%= p('cf.uaa.oauth.logout.uri')%>
+      authorization:
+        uri: <%= p('cf.uaa.oauth.authorization.uri')%>
+      client:
+        id: "<%= p('cf.uaa.oauth.client.id')%>"
+        secret: "<%= p('cf.uaa.oauth.client.secret')%>"
+  api:
+    url: <%= p('cf.api.url')%>

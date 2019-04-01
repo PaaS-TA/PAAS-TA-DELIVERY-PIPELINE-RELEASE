@@ -1,0 +1,5 @@
+check process delivery-pipeline-ui
+  with pidfile /var/vcap/sys/run/delivery-pipeline-ui/delivery-pipeline-ui.pid
+  start program "/var/vcap/jobs/delivery-pipeline-ui/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-ui/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/delivery-pipeline-ui/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-ui/bin/service_ctl stop'"
+  group vcap

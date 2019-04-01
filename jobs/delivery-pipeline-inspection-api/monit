@@ -1,0 +1,5 @@
+check process delivery-pipeline-inspection-api
+  with pidfile /var/vcap/sys/run/delivery-pipeline-inspection-api/delivery-pipeline-inspection-api.pid
+  start program "/var/vcap/jobs/delivery-pipeline-inspection-api/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-inspection-api/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/delivery-pipeline-inspection-api/bin/monit_debugger service_ctl '/var/vcap/jobs/delivery-pipeline-inspection-api/bin/service_ctl stop'"
+  group vcap

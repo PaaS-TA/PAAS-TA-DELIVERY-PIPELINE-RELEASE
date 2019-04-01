@@ -1,0 +1,89 @@
+---
+name: delivery-pipeline-service-broker
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/application.yml.erb: data/application.yml
+  data/properties.sh: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-service-broker
+properties:
+  mariadb.datasource.url:
+    description: 'database server url'
+    default: 'localhost'
+  mariadb.host:
+    description: 'database host ip'
+  mariadb.port:
+    description: 'database port'
+  mariadb.datasource.username:
+    description: 'database username'
+    default: ''
+  mariadb.datasource.password:
+    description: 'database password'
+    default: ''
+  mariadb.jpa.database.name:
+    description: 'jpa database name'
+  pipeline_service_broker.server.port:
+    description: 'service broker port'
+    default: 9090
+  pipeline_service_broker.logging.controller.level:
+    description: 'logging controller level'
+    default: 'DEBUG'
+  pipeline_service_broker.logging.service.level:
+    description: 'logging service level'
+    default: 'DEBUG'
+  pipeline_service_broker.dashboard.url:
+    description: 'pipeline dashboard url'
+  pipeline_service_broker.java_opts:
+    description: 'java option'
+  common_api.url:
+    description: 'common api url'
+  common_api.server.port:
+    description: 'common api server port'
+  ci_server.shared.urls:
+    description: 'ci server shared urls'
+  ci_server.dedicated.urls:
+    description: 'ci server dedicated urls'
+  pipeline_service_broker.serviceDefinition.id:
+    description: 'service broker id'
+    defalut: af86588c-6212-11e7-907b-b6006ad3dps0
+  pipeline_service_broker.serviceDefinition.name:
+    description: 'service broker name'
+    defalut: delivery-pipeline
+  pipeline_service_broker.serviceDefinition.desc:
+    description: 'service broker default description'
+    defalut: 'A paasta source control service for application development.provision parameters : parameters {owner : owner}'
+  pipeline_service_broker.serviceDefinition.bindable:
+    description: 'service Broker Bindability'
+    defalut: false
+  pipeline_service_broker.serviceDefinition.planupdatable:
+    description: 'service Broker plan updateability'
+    defalut: false
+  pipeline_service_broker.serviceDefinition.plan1.id:
+    description: 'service broker plan1 id'
+    defalut: a5930564-6212-11e7-907b-b6006ad3dps1
+  pipeline_service_broker.serviceDefinition.plan1.name:
+    description: 'service broker plan1 name'
+    defalut: delivery-pipeline-shared
+  pipeline_service_broker.serviceDefinition.plan1.desc:
+    description: 'service broker plan1 description'
+    defalut: 'This is a shared service plan. All services are created equally.'
+  pipeline_service_broker.serviceDefinition.plan1.type:
+    description: 'service broker plan1 type'
+    defalut: A
+  pipeline_service_broker.serviceDefinition.plan2.id:
+    description: 'service broker plan2 id'
+    defalut: a5930564-6212-11e7-907b-b6006ad3dps2
+  pipeline_service_broker.serviceDefinition.plan2.name:
+    description: 'service broker plan2 name'
+    defalut: delivery-pipeline-dedicated
+  pipeline_service_broker.serviceDefinition.plan2.desc:
+    description: 'service broker plan1 description'
+    defalut: 'This is a dedicated service plan. All services are created equally.'
+  pipeline_service_broker.serviceDefinition.plan2.type:
+    description: 'service broker plan2 type'
+    defalut: A

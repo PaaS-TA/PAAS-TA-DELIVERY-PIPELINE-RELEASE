@@ -1,0 +1,84 @@
+spring:
+  application:
+    name: paasta-delivery-pipeline-scheduler
+
+org:
+  quartz:
+    scheduler:
+      instanceName: "<%= p('pipeline_scheduler.quartz.scheduler.instance_name')%>"
+      instanceId: <%= p('pipeline_scheduler.quartz.scheduler.instance_id')%>
+    threadPool:
+      threadCount: <%= p('pipeline_scheduler.quartz.thread_pool.thread_count')%>
+job:
+  startDelay: <%= p('pipeline_scheduler.job.start_delay')%>
+# 1 Minutes
+#  repeatInterval: 60000
+# 10 Minutes
+#  repeatInterval: 600000
+# 5 Seconds
+#  repeatInterval: 5000
+# 5 Minutes
+  repeatInterval: <%= p('pipeline_scheduler.job.repeat_interval')%>
+#  repeatInterval: 300000
+  description: "<%= p('pipeline_scheduler.job.description')%>"
+  key: <%= p('pipeline_scheduler.job.key')%>
+
+---
+spring:
+  #profiles: 
+  #  active: dev
+
+  datasource:
+    url: "<%= p('mariadb.datasource.url')%>"
+    username: "<%= p('mariadb.datasource.username')%>"
+    password: "<%= p('mariadb.datasource.password')%>"
+    driver-class-name: "<%= p('mariadb.datasource.driver_class_name')%>"
+  jpa:
+    database: "<%= p('mariadb.jpa.database.name')%>"
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        strategy: org.hibernate.cfg.EJB3NamingStrategy
+    generate-ddl: false
+
+server:
+  port: <%= p('pipeline_scheduler.server.port')%>
+
+logging:
+  level:
+    ROOT: <%= p('pipeline_scheduler.logging.level')%>
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+commonApi:
+  url: <%= p('common_api.url')%>:<%= p('common_api.server.port')%>
+  authorization:
+    id: "<%= p('common_api.authorization.id')%>"
+    password: "<%= p('common_api.authorization.password')%>"
+
+deliveryPipelineApi:
+  url: <%= p('pipeline_api.url')%>:<%= p('pipeline_api.server.port')%>
+  authorization:
+    id: "<%= p('pipeline_api.authorization.id')%>"
+    password: "<%= p('pipeline_api.authorization.password')%>"
+
+cf:
+  uaa:
+    oauth:
+      info:
+        uri: <%= p('cf.uaa.oauth.info.uri')%>
+      token:
+        check:
+          uri: <%= p('cf.uaa.oauth.token.check.uri')%>
+        access:
+          uri: <%= p('cf.uaa.oauth.token.access.uri')%>
+      logout:
+        url: <%= p('cf.uaa.oauth.logout.uri')%>
+      authorization:
+        uri: <%= p('cf.uaa.oauth.authorization.uri')%>
+      client:
+        id: "<%= p('cf.uaa.oauth.client.id')%>"
+        secret: "<%= p('cf.uaa.oauth.client.secret')%>"
+  api:
+    url: <%= p('cf.api.url')%>

@@ -1,0 +1,9 @@
+# abort script on any command that exits with a non zero value
+#set -e -x
+set -eux
+
+SRC_NAME=sonarqbue-5.6.7
+
+echo "Extracting sonarqube files..."
+
+unzip sonarqube/sonarqube-5.6.7.zip -d ${BOSH_INSTALL_TARGET}

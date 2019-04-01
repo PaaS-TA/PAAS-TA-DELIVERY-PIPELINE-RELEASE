@@ -1,0 +1,46 @@
+---
+name: delivery-pipeline-inspection-api
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/properties.sh: data/properties.sh
+  data/application.yml.erb: data/application.yml
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+packages:
+  - java
+  - delivery-pipeline-inspection-api
+properties:
+  inspection_api.http.multipart.max_file_size:
+    description: 'multipart max file size'
+    default: '1000Mb'
+  inspection_api.http.multipart.max_request_size:
+    description: 'multipart max request size'
+    default: '1000Mb'
+  inspection_api.server.port:
+    description: 'api server port'
+    default: 8080
+  inspection_api.logging.level:
+    description: 'logging level'
+    default: 'DEBUG'
+  inspection.url:
+    description: 'inspection server url'
+  inspection.http_url:
+    description: 'inspection server http_url'
+  inspection.http_port:
+    description: 'inspection port'
+  inspection.admin.username:
+    description: 'inspection server admin id'
+  inspection.admin.password:
+    description: 'inspection server admin password'
+  common_api.url:
+    description: 'common api url'
+  common_api.authorization.id:
+    description: 'common api authorization id'
+  common_api.authorization.password:
+    description: 'common api authorization password'
+  common_api.server.port:
+    description: 'common api server port'
+  inspection_api.java_opts:
+    description: 'java_option'

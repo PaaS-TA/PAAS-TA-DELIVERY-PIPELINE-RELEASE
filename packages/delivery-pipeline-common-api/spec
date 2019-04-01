@@ -1,0 +1,8 @@
+---
+name: delivery-pipeline-common-api
+
+dependencies: []
+
+files:
+- delivery-pipeline-common-api/delivery-pipeline-common-api.jar
+
