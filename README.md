@@ -59,6 +59,6 @@ src <br>
 $ cd ~/
 $ git clone https://github.com/PaaS-TA/DELIVERY-PIPELINE-RELEASE.git
 $ cd ~/DELIVERY-PIPELINE-RELEASE
-$ wget 주소 수정중
+$ wget http://45.248.73.44/index.php/s/p2GpgrzqdgY8eNH/download
 $ tar -xvf delivery-pipeline-src.tar.gz
 ```

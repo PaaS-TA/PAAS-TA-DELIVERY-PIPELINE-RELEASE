@@ -12,7 +12,6 @@ packages:
 - ci-server
 
 templates:
-  bin/install.sh.erb: bin/pre-start
   bin/jenkins_master_ctl: bin/jenkins_master_ctl
   bin/monit_debugger: bin/monit_debugger
   data/properties.sh.erb: data/properties.sh

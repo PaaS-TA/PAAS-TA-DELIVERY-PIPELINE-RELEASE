@@ -50,40 +50,40 @@ properties:
     description: 'ci server dedicated urls'
   pipeline_service_broker.serviceDefinition.id:
     description: 'service broker id'
-    defalut: af86588c-6212-11e7-907b-b6006ad3dps0
+    default: af86588c-6212-11e7-907b-b6006ad3dps0
   pipeline_service_broker.serviceDefinition.name:
     description: 'service broker name'
-    defalut: delivery-pipeline
+    default: delivery-pipeline
   pipeline_service_broker.serviceDefinition.desc:
     description: 'service broker default description'
-    defalut: 'A paasta source control service for application development.provision parameters : parameters {owner : owner}'
+    default: 'A paasta source control service for application development.provision parameters : parameters {owner : owner}'
   pipeline_service_broker.serviceDefinition.bindable:
     description: 'service Broker Bindability'
-    defalut: false
+    default: false
   pipeline_service_broker.serviceDefinition.planupdatable:
     description: 'service Broker plan updateability'
-    defalut: false
+    default: false
   pipeline_service_broker.serviceDefinition.plan1.id:
     description: 'service broker plan1 id'
-    defalut: a5930564-6212-11e7-907b-b6006ad3dps1
+    default: a5930564-6212-11e7-907b-b6006ad3dps1
   pipeline_service_broker.serviceDefinition.plan1.name:
     description: 'service broker plan1 name'
-    defalut: delivery-pipeline-shared
+    default: delivery-pipeline-shared
   pipeline_service_broker.serviceDefinition.plan1.desc:
     description: 'service broker plan1 description'
-    defalut: 'This is a shared service plan. All services are created equally.'
+    default: 'This is a shared service plan. All services are created equally.'
   pipeline_service_broker.serviceDefinition.plan1.type:
     description: 'service broker plan1 type'
-    defalut: A
+    default: A
   pipeline_service_broker.serviceDefinition.plan2.id:
     description: 'service broker plan2 id'
-    defalut: a5930564-6212-11e7-907b-b6006ad3dps2
+    default: a5930564-6212-11e7-907b-b6006ad3dps2
   pipeline_service_broker.serviceDefinition.plan2.name:
     description: 'service broker plan2 name'
-    defalut: delivery-pipeline-dedicated
+    default: delivery-pipeline-dedicated
   pipeline_service_broker.serviceDefinition.plan2.desc:
     description: 'service broker plan1 description'
-    defalut: 'This is a dedicated service plan. All services are created equally.'
+    default: 'This is a dedicated service plan. All services are created equally.'
   pipeline_service_broker.serviceDefinition.plan2.type:
     description: 'service broker plan2 type'
-    defalut: A
+    default: A

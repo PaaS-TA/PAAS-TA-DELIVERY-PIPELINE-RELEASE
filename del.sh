@@ -1,13 +1,13 @@
 echo "################################### Delete deployment :: "
-bosh delete deployment paasta-delivery-pipeline-release
+bosh delete-deployment -d paasta-delivery-pipeline-service
 echo "################################### Delete deployment :: "
 
 echo "################################### Delete release :: "
-bosh delete release paasta-delivery-pipeline-release
+bosh delete-release paasta-delivery-pipeline-release
 echo "################################### Delete release :: "
 
 echo "################################### Delete dev_releases/* :: "
-sudo rm -rf dev_releases
+sudo rm -rf paasta-delivery-pipeline-release.tgz
 echo "################################### Delete dev_releases/* :: "
 
 echo "################################### Delete check :: s"
