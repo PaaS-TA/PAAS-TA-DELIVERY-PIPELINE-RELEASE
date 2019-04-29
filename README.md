@@ -7,13 +7,13 @@ src 폴더에 각 package의 설치파일이 위치해야 한다.
 
 src <br>
 
-├── cf-cli
+├── cf-cli <br>
 |     └── cf-cli_6.26.0_linux_x86-64.tgz <br>
-├── delivery-pipeline-binary-storage-api
+├── delivery-pipeline-binary-storage-api <br>
 |     └── delivery-pipeline-api.war <br>
-├── delivery-pipeline-binary-storage-api
+├── delivery-pipeline-binary-storage-api <br>
 |     └── delivery-pipeline-binary-storage-api.jar <br>
-├── delivery-pipeline-common-api
+├── delivery-pipeline-common-api <br>
 |     └── delivery-pipeline-common-api.jar <br>
 ├── delivery-pipeline-inspection-api <br>
 │     └── delivery-pipeline-inspection-api.jar <br>
