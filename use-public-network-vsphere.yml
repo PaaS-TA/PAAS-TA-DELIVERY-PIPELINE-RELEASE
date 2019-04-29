@@ -1,0 +1,8 @@
+---
+
+- type: replace
+  path: /instance_groups/name=haproxy/networks/1/default?
+  value: [dns, gateway]
+- type: replace
+  path: /instance_groups/name=binary_storage/networks/0/default?
+  value: [dns, gateway]
