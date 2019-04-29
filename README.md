@@ -1,5 +1,5 @@
 # PAAS-TA-PORTAL-RELASE
-bosh 2.0 PAAS-TA-PORTAL-RELASE
+bosh 2.0 PAAS-TA-DELIVERY-PIPELINE-RELEASE
 
 src
 ---
@@ -57,8 +57,8 @@ src <br>
 
 ```
 $ cd ~/
-$ git clone https://github.com/PaaS-TA/DELIVERY-PIPELINE-RELEASE.git
-$ cd ~/DELIVERY-PIPELINE-RELEASE
-$ wget http://45.248.73.44/index.php/s/p2GpgrzqdgY8eNH/download
-$ tar -xvf delivery-pipeline-src.tar.gz
+$ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELASE.git
+$ cd ~/PAAS-TA-DELIVERY-PIPELINE-RELASE
+$ wget http://45.248.73.44/index.php/s/SGRqf3rkoio2aD2/download
+$ unzip PAAS-TA-DELIVERY-PIPELINE-RELASE-SRC.zip
 ```
