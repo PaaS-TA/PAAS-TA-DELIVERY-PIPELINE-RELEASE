@@ -4,10 +4,12 @@ name: binary_storage
 templates:
   bin/install.sh.erb: bin/pre-start
   bin/swift_ctl: bin/swift_ctl
+  bin/keystone_ctl: bin/keystone_ctl
+  bin/monit_debugger: bin/monit_debugger
 
   helper/install_deb.sh.erb: helper/install_deb.sh
   helper/swift_set_up.sh.erb: helper/swift_set_up.sh
-  helper/monit_debugger: helper/monit_debugger
+
 
   config/keystone_install/keystone_install.sh.erb: helper/keystone_install/keystone_install.sh
   config/keystone_install/config_admin_port: helper/keystone_install/config_admin_port
@@ -32,25 +34,32 @@ packages:
   - python
   - swift-all-in-one
 
+
+provides:
+    - {name: binary-storage-link, type: binary_storage, properties: [binary-storage, binary_storage.proxy_port, binary_storage.username, binary_storage.tenantname, binary_storage.binary_desc, binary_storage.tenantname, binary_storage.email, binary_storage.auth_port]}
+
+consumes:
+    - name: mariadb-link
+      type: mariadb
+    - name: binary-storage-link
+      type: binary_storage
+
+
 properties:
   binary_storage.proxy_ip:
     description: 'swift proxy ip address'
   binary_storage.proxy_port:
     description: 'swift proxy port'
-  binary_storage.default_username:
+  binary_storage.username:
     description: 'keystone default username'
-  binary_storage.default_password:
+  binary_storage.password:
     description: 'password for keystone default user'
-  binary_storage.default_tenantname:
+  binary_storage.tenantname:
     description: 'keystone default tenant'
-  binary_storage.default_email:
+  binary_storage.email:
+    description: 'keystone default user emaili'
+  binary_storage.binary_desc:
     description: 'keystone default user emaili'
   binary_storage.auth_port:
     description: 'keystone auth port'
-  mariadb.host:
-    description: 'mariadb host'
-  mariadb.port:
-    description: 'mariadb port'
-  mariadb.admin_user.password:
-    description: MariaDB admin user password
-    default: admin
+

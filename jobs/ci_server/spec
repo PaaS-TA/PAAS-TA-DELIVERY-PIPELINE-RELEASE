@@ -11,6 +11,18 @@ packages:
 - sshpass
 - ci-server
 
+provides:
+    - {name: binary-storage-link, type: binary_storage, properties: [binary-storage, binary_storage.proxy_port, binary_storage.username, binary_storage.tenantname, binary_storage.binary_desc, binary_storage.tenantname, binary_storage.email, binary_storage.auth_port]}
+
+consumes:
+    - name: mariadb-link
+      type: mariadb
+    - name: binary-storage-link
+      type: binary_storage
+
+
+
+
 templates:
   bin/jenkins_master_ctl: bin/jenkins_master_ctl
   bin/monit_debugger: bin/monit_debugger

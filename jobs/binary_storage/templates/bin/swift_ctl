@@ -1,11 +1,14 @@
 #!/bin/bash
 
+JOB_NAME="binary_storage"
+
 export PATH=/usr/local/bin
 
 case $1 in
 
   start)
     echo "start"
+    swift-init all stop
     swift-init $2 --config-num=$3 start -r /var/vcap/sys/run/swift
     source /var/vcap/jobs/binary_storage/bin/keystone_ctl
 

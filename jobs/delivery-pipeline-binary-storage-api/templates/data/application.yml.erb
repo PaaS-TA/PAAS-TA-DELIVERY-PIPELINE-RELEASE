@@ -26,8 +26,8 @@ commonApi:
     password: "<%= p('common_api.authorization.password')%>"
 
 objectStorage:
-  tenantName: "<%= p('binary_storage.default_tenantname')%>"
-  username: "<%= p('binary_storage.default_username')%>"
-  password: "<%= p('binary_storage.default_password')%>"
-  container: "<%= p('binary_storage.container')%>"
-  authUrl: "http://<%= p('binary_storage.proxy_ip')%>:<%= p('binary_storage.auth_port')%>/v2.0"
+  tenantName: "<%= link('binary-storage-link').p('binary_storage.tenantname')%>"
+  username: "<%= link('binary-storage-link').p('binary_storage.username')%>"
+  password: "<%= link('binary-storage-link').p('binary_storage.password')%>"
+  container: "<%= link('binary-storage-link').p('binary_storage.container')%>"
+  authUrl: "http://<%= link('binary-storage-link').instances[0].address %>:<%= link('binary-storage-link').p('binary_storage.auth_port')%>/v2.0"
