@@ -2,15 +2,6 @@
 name: delivery-pipeline-binary-storage-api
 
 
-provides:
-    - {name: delivery-pipeline-binary-storage-api-link, type: delivery-pipeline-binary-storage-api, properties: [binary-storage, binary_storage.proxy_port, binary_storage.username, binary_storage.tenantname, binary_storage.binary_desc, binary_storage.tenantname, binary_storage.email, binary_storage.auth_port]}
-
-consumes:
-    - name: mariadb-link
-      type: mariadb
-    - name: binary-storage-link
-      type: binary_storage
-
 templates:
   bin/service_ctl.erb: bin/service_ctl
   bin/monit_debugger: bin/monit_debugger

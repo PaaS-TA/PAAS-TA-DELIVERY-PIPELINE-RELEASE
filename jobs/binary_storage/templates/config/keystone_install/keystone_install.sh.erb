@@ -5,16 +5,10 @@ echo "---------------------------------------------Keystone Install Start"
 JOB_NAME=binary_storage
 KEYSTONE_CONF_DIR=/var/vcap/jobs/$JOB_NAME/helper/keystone_install
 
-#mkdir -p /etc/keystone
-#cd /etc/keystone
-#cp /var/vcap/jobs/$JOB_NAME/config/keystone/etc/* /etc/keystone/
-#rename -f 's/\.sample//' /etc/keystone/*.sample
 
 #Configuration Section
 sed 's/#admin_token = <None>/admin_token = ADMIN_TOKEN/' -i /etc/keystone/keystone.conf
-sed 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db/connection = mysql:\/\/keystone:swiftstack@<%= link('mariadb-link').p('mariadb.host') %>:<%= link('mariadb-link').p('mariadb.port') %>\/keystone/' -i /etc/keystone/keystone.conf
-
-
+sed 's/connection = sqlite:\/\/\/\/var\/lib\/keystone\/keystone.db/connection = mysql:\/\/keystone:swiftstack@<%=p('mariadb.host') %>:<%=p('mariadb.port') %>\/keystone/' -i /etc/keystone/keystone.conf
 
 #enable logs
 sed 's/#debug = false/debug = true/g' -i /etc/keystone/keystone.conf
@@ -33,9 +27,6 @@ sleep 5
 
 chown -R keystone:keystone /var/vcap/store/log/keystone
 
-#cd $KEYSTONE_CONF_DIR ; cp keystone-init.d /etc/init.d/keystone ; cp keystone.conf-init /etc/init/keystone.conf
-
-# service start script
 systemctl stop keystone
 sleep 1
 
@@ -59,19 +50,15 @@ function get_id () {
 # Default tenant
 #
 echo "---------------------------------------------Endpoint Install Start"
+
 if [[ -z "$DISABLE_ENDPOINTS" ]]; then
-#    keystone endpoint-create --region RegionOne --service-id $KEYSTONE_SERVICE \
-#        --publicurl "http://$CONTROLLER_PUBLIC_ADDRESS:$CONFIG_PUBLIC_PORT/v2.0" \
-#        --adminurl "http://$CONTROLLER_ADMIN_ADDRESS:$CONFIG_ADMIN_PORT/v2.0" \
-#        --internalurl "http://$CONTROLLER_INTERNAL_ADDRESS:$CONFIG_PUBLIC_PORT/v2.0"
-
-keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
---bootstrap-admin-url http://localhost:35357/v3/ \
---bootstrap-internal-url http://localhost:5000/v3/ \
---bootstrap-public-url http://<%= link('binary-storage-link').instances[0].address %>:5000/v3/ \
---bootstrap-region-id paasta
-
+    keystone-manage bootstrap --bootstrap-password ADMIN_PASS \
+    --bootstrap-admin-url http://localhost:35357/v3/ \
+    --bootstrap-internal-url http://localhost:5000/v3/ \
+    --bootstrap-public-url http://<%= p("binary_storage.proxy_ip") %>:5000/v3/ \
+    --bootstrap-region-id paasta
 fi
+
 echo "---------------------------------------------Endpoint Install End"
 
 export OS_USERNAME=admin

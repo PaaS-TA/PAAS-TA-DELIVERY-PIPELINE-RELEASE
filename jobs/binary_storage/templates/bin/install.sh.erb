@@ -66,11 +66,11 @@ if [ ! -d "$DATA_DIR" ]; then
   openstack role add --project service --user swift admin
 
 
-  <% p('binary_storage.tenantname').each_with_index do | tenantname, index| %>
-   openstack project create --description "<%= p("binary_storage.binary_desc")[index]%>" <%= tenantname %>
-   openstack user create --password <%= p("binary_storage.password")[index]%> --project <%= tenantname %> --email "<%= p("binary_storage.email")[index]%>" <%= p("binary_storage.username")[index]%>
-   openstack role add --project service --user <%= p("binary_storage.username")[index]%> admin
-  <% end %>
+
+   openstack project create --description "<%= p("binary_storage.binary_desc")%>" <%= p("binary_storage.tenantname") %>
+   openstack user create --password <%= p("binary_storage.password")%> --project <%= p("binary_storage.tenantname") %> --email "<%= p("binary_storage.email")%>" <%= p("binary_storage.username")%>
+   openstack role add --project service --user <%= p("binary_storage.username")%> admin
+
 
   openstack endpoint create --region paasta swift public http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
   openstack endpoint create --region paasta swift admin http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1

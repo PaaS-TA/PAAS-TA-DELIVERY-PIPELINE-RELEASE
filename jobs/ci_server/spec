@@ -2,26 +2,14 @@
 name: ci_server
 
 packages:
-- java 
-- gradle-2.14.1
-- gradle-3.5
-- git
-- cf-cli
-- maven
-- sshpass
-- ci-server
-
-provides:
-    - {name: binary-storage-link, type: binary_storage, properties: [binary-storage, binary_storage.proxy_port, binary_storage.username, binary_storage.tenantname, binary_storage.binary_desc, binary_storage.tenantname, binary_storage.email, binary_storage.auth_port]}
-
-consumes:
-    - name: mariadb-link
-      type: mariadb
-    - name: binary-storage-link
-      type: binary_storage
-
-
-
+  - java
+  - gradle-2.14.1
+  - gradle-3.5
+  - git
+  - cf-cli
+  - maven
+  - sshpass
+  - ci-server
 
 templates:
   bin/jenkins_master_ctl: bin/jenkins_master_ctl
@@ -50,3 +38,4 @@ properties:
     description: "Inspection server http url"
   inspection.http_port:
     description: "Inspection server http port"
+

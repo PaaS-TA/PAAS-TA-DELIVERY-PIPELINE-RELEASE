@@ -1,6 +1,8 @@
 # PAAS-TA-DELIVERY-PIPELINE-RELEASE
 bosh 2.0 PAAS-TA-DELIVERY-PIPELINE-RELEASE
 
+stemcell ubuntu-xenial 만 지원됨
+
 src
 ---
 src 폴더에 각 package의 설치파일이 위치해야 한다.
