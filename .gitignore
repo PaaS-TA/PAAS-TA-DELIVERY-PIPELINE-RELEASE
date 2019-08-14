@@ -30,4 +30,4 @@ nbdist/
 src/main/webapp/
 
 #BOSH
-src
+src/*
