@@ -73,11 +73,11 @@ if [ ! -d "$DATA_DIR" ]; then
 
 
   openstack endpoint create --region paasta swift public http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
-  openstack endpoint create --region paasta swift admin http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1
-  openstack endpoint create --region paasta swift internal http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+  #openstack endpoint create --region paasta swift admin http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1
+  #openstack endpoint create --region paasta swift internal http://<%= p("binary_storage.proxy_ip") %>:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
 
 
-  openstack endpoint create --region paasta swift public http://localhost:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
+  #openstack endpoint create --region paasta swift public http://localhost:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
   openstack endpoint create --region paasta swift admin http://localhost:<%= p("binary_storage.proxy_port") %>/v1
   openstack endpoint create --region paasta swift internal http://localhost:<%= p("binary_storage.proxy_port") %>/v1/AUTH_%\(project_id\)s
 
