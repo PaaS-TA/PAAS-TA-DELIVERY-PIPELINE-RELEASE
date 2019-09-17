@@ -3,7 +3,7 @@ name: paasta-delivery-pipeline-service                      # 서비스 배포�
 
 releases:
 - name: paasta-delivery-pipeline-release                    # 서비스 릴리즈 이름(필수)
-  version: "1.0"                                        # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  version: latest                                       # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 stemcells:
 - alias: default
@@ -27,8 +27,8 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.68
-  templates:
+    - 10.0.161.68
+  jobs:
   - name: mariadb
     release: paasta-delivery-pipeline-release
 
@@ -42,8 +42,8 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.82
-  templates:
+    - 10.0.161.82
+  jobs:
   - name: postgres
     release: paasta-delivery-pipeline-release
 
@@ -56,25 +56,25 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.69
-  templates:
+    - 10.0.161.69
+  jobs:
   - name: inspection
     release: paasta-delivery-pipeline-release
 
 - name: haproxy
   azs:
-  - z5
+  - z7
   instances: 1
   vm_type: ((vm_type_small))
   stemcell: default
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.70
+    - 10.0.161.70
   - name: ((public_network_name))
     static_ips:
     - xxx.xxx.xxx.xxx
-  templates:
+  jobs:
   - name: haproxy
     release: paasta-delivery-pipeline-release
 
@@ -82,15 +82,15 @@ instance_groups:
   azs:
   - z5
   instances: 2
-  persistent_disk_type: 4GB
+  persistent_disk_type: 5GB
   vm_type: ((vm_type_small))
   stemcell: default
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.71
-    - 10.30.50.72
-  templates:
+    - 10.0.161.71
+    - 10.0.161.72
+  jobs:
   - name: ci_server
     release: paasta-delivery-pipeline-release
   env:
@@ -101,13 +101,13 @@ instance_groups:
   azs:
   - z5
   instances: 1
-  persistent_disk_type: 4GB
+  persistent_disk_type: 5GB
   vm_type: ((vm_type_small))
   stemcell: default
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.39
+    - 10.0.161.39
   jobs:
   - name: binary_storage
     release: paasta-delivery-pipeline-release
@@ -121,7 +121,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.66
+    - 10.0.161.66
 #    - 10.30.107.166
   jobs:
   - name: delivery-pipeline-common-api
@@ -136,7 +136,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.62
+    - 10.0.161.62
 #    - 10.30.107.162
   jobs:
   - name: delivery-pipeline-inspection-api
@@ -151,7 +151,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.61
+    - 10.0.161.61
   jobs:
   - name: delivery-pipeline-binary-storage-api
     release: paasta-delivery-pipeline-release
@@ -165,7 +165,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.65
+    - 10.0.161.65
 #    - 10.30.107.165
   jobs:
   - name: delivery-pipeline-api
@@ -180,7 +180,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.64
+    - 10.0.161.64
   jobs:
   - name: delivery-pipeline-service-broker
     release: paasta-delivery-pipeline-release
@@ -194,7 +194,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.67
+    - 10.0.161.67
   jobs:
   - name: delivery-pipeline-ui
     release: paasta-delivery-pipeline-release
@@ -208,7 +208,7 @@ instance_groups:
   networks:
   - name: ((internal_network_name))
     static_ips:
-    - 10.30.50.63
+    - 10.0.161.63
   jobs:
   - name: delivery-pipeline-scheduler
     release: paasta-delivery-pipeline-release
@@ -239,7 +239,7 @@ properties:
     admin_user:
       username: 'admin'
       password: '!paas_ta202'
-    http_url: '10.30'
+    http_url: '10.0'
     http_port: 8088
     ajp13_port: 8009
     ssh:
@@ -256,11 +256,11 @@ properties:
       name: "ci_server"                                    # JOB 이름과 동일하게 설정
     shared:                                                # Shared 서비스 설정 정보
       urls:
-        - http://10.30.50.71:8088
+        - http://10.0.161.71:8088
     #    - http://10.30.107.72:8088
     dedicated:                                             # Dedicated 서비스 설정 정보
       urls:
-        - http://10.30.50.72:8088
+        - http://10.0.161.72:8088
     #    - http://10.30.107.74:8088
     #    - http://10.30.107.75:8088
 
@@ -268,13 +268,13 @@ properties:
     port: 3306
     admin_user:
       password: "!paas_ta202"
-    host: 10.30.50.68
+    host: 10.0.161.68
     host_names:
     - mariadb0
     host_ips:
-    - 10.30.50.68
+    - 10.0.161.68
     datasource:
-      url: jdbc:mysql://10.30.50.68:3306/delivery_pipeline?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+      url: jdbc:mysql://10.0.161.68:3306/delivery_pipeline?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
       username: root
       password: "!paas_ta202"
       driver_class_name: com.mysql.cj.jdbc.Driver
@@ -284,24 +284,24 @@ properties:
 
   postgres:                                                # POSTGRESQL SERVER 설정 정보
     port: 5432
-    host: 10.30.50.82
+    host: 10.0.161.82
     vcap_password: c1oudc0w
     datasource:
-      url: jdbc:postgresql://10.30.50.82:5432/sonar
+      url: jdbc:postgresql://10.0.161.82:5432/sonar
       username: "sonar"
       password: "sonar"
       database: "sonar"
 
   inspection:                                              # INSPECTION SERVER 설정 정보
-    url: 10.30.50.69
-    http_url: 'http://10.30.50.69'
+    url: 10.0.161.69
+    http_url: 'http://10.0.161.69'
     http_port: 9000
     admin:
       username: admin
       password: admin
 
   binary_storage:                                          # BINARY STORAGE SERVER 설정 정보
-    proxy_ip: 10.30.50.39                               # 프록시 서버 IP(swift-keystone job의 static_ip, Object Storage 접속 IP)
+    proxy_ip: 10.0.161.39                                 # 프록시 서버 IP(swift-keystone job의 static_ip, Object Storage 접속 IP)
     proxy_port: 10008                                      # 프록시 서버 Port(Object Storage 접속 Port)
     username: paasta-pipeline                      # 최초 생성되는 유저이름(Object Storage 접속 유저이름)
     password: paasta-pipeline                      # 최초 생성되는 유저 비밀번호(Object Storage 접속 유저 비밀번호)
@@ -312,7 +312,7 @@ properties:
     auth_port: 5000
 
   common_api:                                              # COMMON API 설정 정보
-    url: http://10.30.50.66
+    url: http://10.0.161.66
     server:
       port: 8081
     authorization:
@@ -322,12 +322,12 @@ properties:
       level: INFO
     haproxy:
       urls:
-        - 10.30.50.66
+        - 10.0.161.66
 #        - 10.30.107.166
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   pipeline_api:                                            # CI API 설정 정보
-    url: http://10.30.50.65
+    url: http://10.0.161.65
     server:
       port: 8082
     authorization:
@@ -341,12 +341,12 @@ properties:
       level: INFO
     haproxy:
       urls:
-        - 10.30.50.65
+        - 10.0.161.65
 #        - 10.30.107.165
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   inspection_api:                                          # INSPECTION API 설정 정보
-    url: http://10.30.50.62
+    url: http://10.0.161.62
     server:
       port: 8083
     http:
@@ -360,7 +360,7 @@ properties:
       password: PaaS-TA
     haproxy:
       urls:
-        - 10.30.50.62
+        - 10.0.161.62
 #        - 10.30.107.162
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
@@ -373,14 +373,14 @@ properties:
       port: 8080
     logging:
       level: INFO
-    url: http://10.30.50.61
+    url: http://10.0.161.61
     authorization:
       id: admin
       password: PaaS-TA
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   pipeline_ui:                                              # UI 설정 정보
-    url: http://10.30.50.67
+    url: http://10.0.161.67
     server:
       port: 8084
     http:
@@ -391,7 +391,7 @@ properties:
       level: INFO
     haproxy:
       urls:
-        - 10.30.50.67
+        - 10.0.161.67
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   pipeline_scheduler:                                      # SCHEDULER 설정 정보
@@ -425,6 +425,6 @@ properties:
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   haproxy:                                                 # HAPROXY 설정 정보
-    url: 10.30.50.70
+    url: 10.0.161.70
     http_port: 8080
 
