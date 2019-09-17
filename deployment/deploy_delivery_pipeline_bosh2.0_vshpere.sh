@@ -7,4 +7,4 @@ bosh -d paasta-delivery-pipeline-service deploy paasta_delivery_pipeline_bosh2.0
    -v public_network_name=service_public \
    -v stemcell_os=ubuntu-xenial \
    -v stemcell_version=315.36 \
-   -v vm_type_small=minimal
+   -v vm_type_small=small
