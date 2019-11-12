@@ -61,6 +61,6 @@ src <br>
 $ cd ~/
 $ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELASE.git
 $ cd ~/PAAS-TA-DELIVERY-PIPELINE-RELASE
-$ wget -O src.zip http://45.248.73.44/index.php/s/45Tzaw8Mp5PDonX/download
+$ wget -O src.zip http://45.248.73.44/index.php/s/ayE9n8QdGDXYgLP/download
 $ unzip src.zip
 ```
