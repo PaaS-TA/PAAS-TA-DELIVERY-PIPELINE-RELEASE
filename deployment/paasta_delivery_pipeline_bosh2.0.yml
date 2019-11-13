@@ -3,7 +3,7 @@ name: paasta-delivery-pipeline-service                      # 서비스 배포�
 
 releases:
 - name: paasta-delivery-pipeline-release                    # 서비스 릴리즈 이름(필수)
-  version: "1.0"                                        # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+  version: "latest"                                        # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
 
 stemcells:
 - alias: default
@@ -122,7 +122,6 @@ instance_groups:
   - name: ((internal_network_name))
     static_ips:
     - 10.0.161.66
-#    - 10.30.107.166
   jobs:
   - name: delivery-pipeline-common-api
     release: paasta-delivery-pipeline-release
@@ -137,7 +136,6 @@ instance_groups:
   - name: ((internal_network_name))
     static_ips:
     - 10.0.161.62
-#    - 10.30.107.162
   jobs:
   - name: delivery-pipeline-inspection-api
     release: paasta-delivery-pipeline-release
@@ -166,7 +164,6 @@ instance_groups:
   - name: ((internal_network_name))
     static_ips:
     - 10.0.161.65
-#    - 10.30.107.165
   jobs:
   - name: delivery-pipeline-api
     release: paasta-delivery-pipeline-release
@@ -257,12 +254,9 @@ properties:
     shared:                                                # Shared 서비스 설정 정보
       urls:
         - http://10.0.161.71:8088
-    #    - http://10.30.107.72:8088
     dedicated:                                             # Dedicated 서비스 설정 정보
       urls:
         - http://10.0.161.72:8088
-    #    - http://10.30.107.74:8088
-    #    - http://10.30.107.75:8088
 
   mariadb:                                                 # MARIA DB SERVER 설정 정보
     port: 3306
@@ -323,7 +317,6 @@ properties:
     haproxy:
       urls:
         - 10.0.161.66
-#        - 10.30.107.166
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   pipeline_api:                                            # CI API 설정 정보
@@ -342,7 +335,6 @@ properties:
     haproxy:
       urls:
         - 10.0.161.65
-#        - 10.30.107.165
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   inspection_api:                                          # INSPECTION API 설정 정보
@@ -361,7 +353,6 @@ properties:
     haproxy:
       urls:
         - 10.0.161.62
-#        - 10.30.107.162
     java_opts: '-XX:MaxMetaspaceSize=104857K -Xss349K -Xms681574K -XX:MetaspaceSize=104857K -Xmx681574K'
 
   binary_storage_api:                                      # BINARY STORAGE API 설정 정보

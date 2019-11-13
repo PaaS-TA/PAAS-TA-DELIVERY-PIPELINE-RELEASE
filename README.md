@@ -1,66 +1,66 @@
 # PAAS-TA-DELIVERY-PIPELINE-RELEASE
-bosh 2.0 PAAS-TA-DELIVERY-PIPELINE-RELEASE
-
 stemcell ubuntu-xenial 만 지원됨
 
-src
----
-src 폴더에 각 package의 설치파일이 위치해야 한다.
+### Create PaaS-TA Delivery Pipeline Service Release
+- Download the latest Release
+    ```  
+    $ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELEASE.git
+    ```
+- Download & Copy "source files" into the src directory
+    ```  
+    ## download source files
+    $ cd PAAS-TA-DELIVERY-PIPELINE-RELEASE  
+    $ wget -O src.zip http://45.248.73.44/index.php/s/ncWqZNMFzq3fMdN/download
+    $ unzip src.zip  
 
-src <br>
-
-├── cf-cli <br>
-|     └── cf-cli_6.26.0_linux_x86-64.tgz <br>
-├── delivery-pipeline-binary-storage-api <br>
-|     └── delivery-pipeline-api.war <br>
-├── delivery-pipeline-binary-storage-api <br>
-|     └── delivery-pipeline-binary-storage-api.jar <br>
-├── delivery-pipeline-common-api <br>
-|     └── delivery-pipeline-common-api.jar <br>
-├── delivery-pipeline-inspection-api <br>
-│     └── delivery-pipeline-inspection-api.jar <br>
-├── delivery-pipeline-scheduler <br>
-│     └── delivery-pipeline-scheduler.jar <br>
-├── delivery-pipeline-service-broker <br>
-│     └── delivery-pipeline-service-broker.jar <br>
-├── delivery-pipeline-ui <br>
-│     └── delivery-pipeline-ui.war <br>
-├── git <br>
-│     └── git-2.9.3.tar.gz <br>
-├── gradle <br>
-│     └── gradle-2.14.1-bin.zip <br>
-│     └── gradle-3.5-bin.zip <br>
-├── haproxy <br>
-│     └── haproxy-1.6.5.tar.gz <br>
-├── java <br>
-│     └── server-jre-8u121-linux-x64.tar.gz <br>
-├── jenkins <br>
-│     └── jenkins.war <br>
-│     └── update_files.tar.gz <br>
-├── mariadb <br>
-│     └── mariadb-10.1.22-linux-x86_64.tar.gz <br>
-├── maven <br>
-│     └── apache-maven-3.5.0-bin.tar.gz <br>
-├── postgres <br>
-│     └── postgresql-9.6.5-1-linux-x64-binaries.tar.gz <br>
-├── python <br>
-│     └── Python-2.7.8.tgz <br>
-├── sonarqube <br>
-│     └── sonarqube-5.6.7.zip <br>
-├── sshpass <br>
-│     └── sshpass-1.06.tar.gz <br>
-├── swift-all-in-one <br>
-│     └── swift-2.2.0.tar.gz <br>
-│     └── swift-all-in-one-deb.tar.gz <br>
-│     └── swift-all-in-one-whl.tar.gz <br>
-│     └── swiftonfile-2.5.0.tar.gz <br>
-└── README.md <br>
-
-
-```
-$ cd ~/
-$ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELASE.git
-$ cd ~/PAAS-TA-DELIVERY-PIPELINE-RELASE
-$ wget -O src.zip http://45.248.73.44/index.php/s/45Tzaw8Mp5PDonX/download
-$ unzip src.zip
-```
+    ## src directory
+    src  
+        ├── cf-cli  
+        │   └── cf-cli_6.26.0_linux_x86-64.tgz  
+        ├── delivery-pipeline-api  
+        │   └── delivery-pipeline-api.war  
+        ├── delivery-pipeline-binary-storage-api  
+        │   └── delivery-pipeline-binary-storage-api.jar  
+        ├── delivery-pipeline-common-api  
+        │   └── delivery-pipeline-common-api.jar  
+        ├── delivery-pipeline-inspection-api  
+        │   └── delivery-pipeline-inspection-api.jar  
+        ├── delivery-pipeline-scheduler  
+        │   └── delivery-pipeline-scheduler.jar  
+        ├── delivery-pipeline-service-broker  
+        │   └── delivery-pipeline-service-broker.jar  
+        ├── delivery-pipeline-ui  
+        │   └── delivery-pipeline-ui.war  
+        ├── git  
+        │   └── git-2.9.3.tar.gz  
+        ├── gradle  
+        │   ├── gradle-2.14.1-bin.zip  
+        │   └── gradle-3.5-bin.zip  
+        ├── haproxy  
+        │   └── haproxy-1.6.5.tar.gz  
+        ├── java  
+        │   └── server-jre-8u121-linux-x64.tar.gz  
+        ├── jenkins  
+        │   ├── jenkins.war  
+        │   └── update_files.tar.gz  
+        ├── mariadb  
+        │   └── mariadb-10.1.22-linux-x86_64.tar.gz  
+        ├── maven  
+        │   └── apache-maven-3.5.0-bin.tar.gz  
+        ├── postgres  
+        │   └── postgresql-9.6.5-1-linux-x64-binaries.tar.gz   
+        ├── python  
+        │   └── Python-2.7.8.tgz  
+        ├── sonarqube  
+        │   └── sonarqube-5.6.7.zip  
+        ├── sshpass  
+        │   └── sshpass-1.06.tar.gz  
+        └── swift-all-in-one  
+        │   └── swift-all-in-one.tar.gz  
+    ```
+- Create Delivery Pipeline Service Release
+    ```
+    $ cd PAAS-TA-DELIVERY-PIPELINE-RELEASE
+    ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release.tgz) 
+    $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=1.0 --tarball=<RELEASE_TARBALL_PATH> --force
+    ```
