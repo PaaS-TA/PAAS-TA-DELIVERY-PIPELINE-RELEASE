@@ -1,16 +1,33 @@
-# PAAS-TA-DELIVERY-PIPELINE-RELEASE
-stemcell ubuntu-xenial 만 지원됨
+## PAAS-TA-DELIVERY-PIPELINE-RELEASE  
 
-### Create PaaS-TA Delivery Pipeline Service Release
-- Download the latest Release
-    ```  
+### PaaS-TA Delivery Pipeline Release Configuration  
+
+  - haproxy : 1 machine  
+  - delivery-pipeline-ui : N machine(s)  
+  - delivery-pipeline-service-broker : 1 machine  
+  - delivery-pipeline-common-api : N machine(s)  
+  - delivery-pipeline-api : N machine(s)  
+  - delivery-pipeline-inspection-api : N machine(s)  
+  - delivery-pipeline-binary-storage-api : 1 machine  
+  - delivery-pipeline-scheduler : 1 machine  
+  - ci_server : N machine(s)  
+  - inspection : 1 machine  
+  - binary_storage : 1 machine  
+  - mariadb : 1 machine  
+  - postgres : 1 machine  
+
+### Create PaaS-TA Delivery Pipeline Release  
+  - Download the latest Delivery Pipeline Release  
+    ```   
     $ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELEASE.git
-    ```
-- Download & Copy "source files" into the src directory
+    $ cd PAAS-TA-DELIVERY-PIPELINE-RELEASE  
+    ```  
+  - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ cd PAAS-TA-DELIVERY-PIPELINE-RELEASE  
     $ wget -O src.zip http://45.248.73.44/index.php/s/ncWqZNMFzq3fMdN/download
+
+    ## unzip download source files
     $ unzip src.zip  
 
     ## src directory
@@ -56,11 +73,14 @@ stemcell ubuntu-xenial 만 지원됨
         ├── sshpass  
         │   └── sshpass-1.06.tar.gz  
         └── swift-all-in-one  
-        │   └── swift-all-in-one.tar.gz  
-    ```
-- Create Delivery Pipeline Service Release
-    ```
-    $ cd PAAS-TA-DELIVERY-PIPELINE-RELEASE
-    ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release.tgz) 
-    $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=1.0 --tarball=<RELEASE_TARBALL_PATH> --force
-    ```
+            └── swift-all-in-one.tar.gz  
+    ```  
+  - Create PaaS-TA Delivery Pipeline Release  
+    ```  
+    ## <VERSION> :: release version (e.g. 1.0.1)
+    ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release-<VERSION>.tgz)
+    $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
+    ```  
+
+### Deployment    
+  - https://github.com/PaaS-TA/service-deployment  
