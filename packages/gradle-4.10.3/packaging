@@ -1,0 +1,6 @@
+set -e
+set -u
+
+unzip gradle/gradle-4.10.3-bin.zip
+
+cp -a ${BOSH_COMPILE_TARGET}/gradle-4.10.3/* ${BOSH_INSTALL_TARGET}

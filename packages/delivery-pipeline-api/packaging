@@ -1,4 +1,4 @@
 # abort script on any command that exits with a non zero value
 set -e
 
-unzip delivery-pipeline-api/delivery-pipeline-api.war -d ${BOSH_INSTALL_TARGET}
+unzip delivery-pipeline-api/delivery-pipeline-api*.war -d ${BOSH_INSTALL_TARGET}

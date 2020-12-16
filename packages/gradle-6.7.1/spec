@@ -1,0 +1,7 @@
+---
+name: gradle-6.7.1
+
+dependencies: []
+
+files: 
+- gradle/gradle-6.7.1-bin.zip

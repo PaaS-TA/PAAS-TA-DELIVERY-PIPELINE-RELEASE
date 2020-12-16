@@ -2,4 +2,4 @@
 set -e
 
 
-unzip delivery-pipeline-ui/delivery-pipeline-ui.war -d ${BOSH_INSTALL_TARGET}
+unzip delivery-pipeline-ui/delivery-pipeline-ui*.war -d ${BOSH_INSTALL_TARGET}

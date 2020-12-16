@@ -4,4 +4,4 @@ name: delivery-pipeline-api
 dependencies: []
 
 files:
-- delivery-pipeline-api/delivery-pipeline-api.war
+- delivery-pipeline-api/delivery-pipeline-api*.war

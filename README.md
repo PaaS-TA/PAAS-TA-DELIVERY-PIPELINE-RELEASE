@@ -25,7 +25,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip http://45.248.73.44/index.php/s/ncWqZNMFzq3fMdN/download
+    $ wget -O src.zip http://45.248.73.44/index.php/s/mZqcwwMDDKRHnZb/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -35,7 +35,7 @@
         ├── cf-cli  
         │   └── cf-cli_6.26.0_linux_x86-64.tgz  
         ├── delivery-pipeline-api  
-        │   └── delivery-pipeline-api.war  
+        │   └── delivery-pipeline-api-1.0.2.war  
         ├── delivery-pipeline-binary-storage-api  
         │   └── delivery-pipeline-binary-storage-api.jar  
         ├── delivery-pipeline-common-api  
@@ -47,12 +47,15 @@
         ├── delivery-pipeline-service-broker  
         │   └── delivery-pipeline-service-broker.jar  
         ├── delivery-pipeline-ui  
-        │   └── delivery-pipeline-ui.war  
+        │   └── delivery-pipeline-ui-1.0.1.war  
         ├── git  
         │   └── git-2.9.3.tar.gz  
         ├── gradle  
         │   ├── gradle-2.14.1-bin.zip  
-        │   └── gradle-3.5-bin.zip  
+        │   ├── gradle-3.5-bin.zip
+        │   ├── gradle-4.10.3-bin.zip
+        │   ├── gradle-5.6.4-bin.zip
+        │   └── gradle-6.7.1-bin.zip  
         ├── haproxy  
         │   └── haproxy-1.6.5.tar.gz  
         ├── java  
@@ -77,7 +80,7 @@
     ```  
   - Create PaaS-TA Delivery Pipeline Release  
     ```  
-    ## <VERSION> :: release version (e.g. 1.0.1)
+    ## <VERSION> :: release version (e.g. 1.0.2)
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release-<VERSION>.tgz)
     $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
     ```  

@@ -1,0 +1,6 @@
+set -e
+set -u
+
+unzip gradle/gradle-5.6.4-bin.zip
+
+cp -a ${BOSH_COMPILE_TARGET}/gradle-5.6.4/* ${BOSH_INSTALL_TARGET}

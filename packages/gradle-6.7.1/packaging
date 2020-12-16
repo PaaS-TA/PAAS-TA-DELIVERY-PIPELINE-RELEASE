@@ -1,0 +1,6 @@
+set -e
+set -u
+
+unzip gradle/gradle-6.7.1-bin.zip
+
+cp -a ${BOSH_COMPILE_TARGET}/gradle-6.7.1/* ${BOSH_INSTALL_TARGET}
