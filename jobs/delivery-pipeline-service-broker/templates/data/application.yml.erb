@@ -5,7 +5,7 @@ spring:
   application:
     name: delivery-pipeline-service-broker
   datasource:
-    url: jdbc:mysql://<%= p('mariadb.host')%>:<%= p('mariadb.port')%>/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
+    url: jdbc:mariadb://<%= p('mariadb.host')%>:<%= p('mariadb.port')%>/broker?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false
     username: "<%= p('mariadb.datasource.username')%>"
     password: "<%= p('mariadb.datasource.password')%>"
   jpa:

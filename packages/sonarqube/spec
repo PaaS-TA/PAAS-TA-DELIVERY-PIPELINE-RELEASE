@@ -4,4 +4,4 @@ name: sonarqube
 dependencies: [] # no compile dependencies
 
 files:
-  - sonarqube/sonarqube-5.6.7.zip
+  - sonarqube/sonarqube-5.6.7-PaaS-TA.zip

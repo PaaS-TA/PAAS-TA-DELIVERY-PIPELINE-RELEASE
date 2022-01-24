@@ -35,4 +35,12 @@ properties:
     default: 'DEBUG'
   common_api.java_opts:
     description: 'java option'
+  pipeline_api.url:
+    description: 'delivery pipeline api url'
+  pipeline_api.server.port:
+    description: 'pipeline api server port'
+  pipeline_api.authorization.id:
+    description: 'delivery pipeline api authorization id'
+  pipeline_api.authorization.password:
+    description: 'delivery pipeline api authorization password'
 

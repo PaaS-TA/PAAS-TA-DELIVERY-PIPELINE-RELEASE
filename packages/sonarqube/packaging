@@ -1,4 +1,9 @@
 # abort script on any command that exits with a non zero value
+#
+# sonarqube-5.6.7-PaaS-TA.zip change log : update postgresql jdbc 
+# (move) sonarqube-5.6.7/lib/jdbc/postgresql > old-postgresql
+# (add) sonarqube-5.6.7/lib/jdbc/postgresql/postgresql-42.2.24.jre7.jar
+#
 #set -e -x
 set -eux
 
@@ -6,4 +11,4 @@ SRC_NAME=sonarqbue-5.6.7
 
 echo "Extracting sonarqube files..."
 
-unzip sonarqube/sonarqube-5.6.7.zip -d ${BOSH_INSTALL_TARGET}
+unzip sonarqube/sonarqube-5.6.7-PaaS-TA.zip -d ${BOSH_INSTALL_TARGET}

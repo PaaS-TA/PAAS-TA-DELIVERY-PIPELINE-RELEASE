@@ -17,7 +17,7 @@ packages:
 properties:
   postgres.port:
     description: 'database server port'
-    default: 5432
+    default: 5524
   postgres.vcap_password:
     description: 'vcap password'
   postgres.datasource.username:
@@ -26,4 +26,7 @@ properties:
     description: 'database password'
   postgres.datasource.database:
     description: 'database name'
+  cce_enable:
+    description: cce_patch.
+    default: false
 
