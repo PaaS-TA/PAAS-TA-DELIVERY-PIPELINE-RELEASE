@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip http://45.248.73.44/index.php/s/mZqcwwMDDKRHnZb/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/Lxd6QrMeQdZR6zd/download
 
     ## unzip download source files
     $ unzip src.zip  
