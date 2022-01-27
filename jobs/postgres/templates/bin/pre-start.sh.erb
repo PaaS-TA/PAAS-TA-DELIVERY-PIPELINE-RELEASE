@@ -48,3 +48,18 @@ function main() {
 
 main
 
+<% if p('cce_enable') %>
+#CCE :: postgresql
+echo "##### SETUP :: APP-LIFECYCLE :: postgresql :: cce_enable START "
+
+sudo -u vcap echo "# CCE
+password_encryption= 'scram-sha-256'
+log_statement=all
+log_min_duration_statement = 100 " >> /var/vcap/jobs/postgres/data/postgresql.conf
+
+sudo sed -i 's/      md5/      scram-sha-256/' /var/vcap/jobs/postgres/data/pg_hba.conf
+sudo sed -i 's/port = 5432/port = 5524/' /var/vcap/jobs/postgres/data/postgresql.conf
+sudo chmod 600 /var/vcap/store/postgres/data/*.conf
+
+echo "##### SETUP :: APP-LIFECYCLE :: postgresql :: cce_enable END "
+<% end %>

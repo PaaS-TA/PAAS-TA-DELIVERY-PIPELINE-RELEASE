@@ -18,7 +18,8 @@ export ADMIN_PASSWORD='<%= p("ci_server.admin_user.password") %>'
 
 
 #Set the jenkis URL to the host IP.
-IP=$(ifconfig | grep '<%= p("ci_server.http_url") %>' | awk -F ":"  '/inet addr/{split($2,a," ");print a[1]}')
+#IP=$(ifconfig | grep '<%= p("ci_server.http_url") %>' | awk -F ":"  '/inet addr/{split($2,a," ");print a[1]}')
+IP=$(ifconfig eth0 | grep inet | awk '{print $2}')
 URL="http\://$IP\:$PORT"
 FILENAME="/var/vcap/jobs/ci_server/config/jenkins.model.JenkinsLocationConfiguration.xml"
 sed -i "s:<jenkinsUrl></jenkinsUrl>:<jenkinsUrl>$URL</jenkinsUrl>:g" $FILENAME

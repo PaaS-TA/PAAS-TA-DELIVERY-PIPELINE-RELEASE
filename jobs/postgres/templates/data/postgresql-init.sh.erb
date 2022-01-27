@@ -8,15 +8,16 @@ PSQL_BIN_DIR=/var/vcap/packages/$PSQL_VERSION/bin
 JOB_DIR=/var/vcap/jobs/${PSQL_VERSION}/data
 
 # DROP
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "DROP DATABASE IF EXISTS \"sonar\""
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "DROP ROLE IF EXISTS \"sonar\""
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "DROP DATABASE IF EXISTS \"sonar\""
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "DROP ROLE IF EXISTS \"sonar\""
 
 # CREATE
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "CREATE USER <%= p('postgres.datasource.username')%>"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER ROLE <%= p('postgres.datasource.username')%> WITH CREATEDB"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER USER <%= p('postgres.datasource.username')%> WITH ENCRYPTED PASSWORD '<%= p('postgres.datasource.password')%>'"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "CREATE DATABASE <%= p('postgres.datasource.database')%> WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER DATABASE <%= p('postgres.datasource.database')%> OWNER TO <%= p('postgres.datasource.username')%>"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "grant all privileges on database <%= p('postgres.datasource.database')%> to <%= p('postgres.datasource.username')%>"
-$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER USER vcap PASSWORD '<%= p('postgres.vcap_password')%>'"
-$PSQL_BIN_DIR/psql -U <%= p('postgres.datasource.username')%> -p $PSQL_PORT -d <%= p('postgres.datasource.database')%> -a -f $JOB_DIR/postgresql.sql
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "CREATE USER <%= p('postgres.datasource.username')%>"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER ROLE <%= p('postgres.datasource.username')%> WITH SUPERUSER"
+#$PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER USER <%= p('postgres.datasource.username')%> WITH ENCRYPTED PASSWORD '<%= p('postgres.datasource.password')%>'"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER USER <%= p('postgres.datasource.username')%> WITH LOGIN PASSWORD '<%= p('postgres.datasource.password')%>'"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "CREATE DATABASE <%= p('postgres.datasource.database')%> WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8'"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER DATABASE <%= p('postgres.datasource.database')%> OWNER TO <%= p('postgres.datasource.username')%>"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "grant all privileges on database <%= p('postgres.datasource.database')%> to <%= p('postgres.datasource.username')%>"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d postgres -c "ALTER USER vcap PASSWORD '<%= p('postgres.vcap_password')%>'"
+sudo -u vcap $PSQL_BIN_DIR/psql -U $PSQL_USER -p $PSQL_PORT -d <%= p('postgres.datasource.database')%> -a -f $JOB_DIR/postgresql.sql

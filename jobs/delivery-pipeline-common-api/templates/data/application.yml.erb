@@ -28,3 +28,10 @@ logging:
     ROOT: <%= p('common_api.logging.level')%>
   path: classpath:logback-spring.xml
   file: logs/application.log
+
+deliveryPipelineApi:
+  url: <%= p('pipeline_api.url')%>:<%= p('pipeline_api.server.port')%>
+  authorization:
+    id: "<%= p('pipeline_api.authorization.id')%>"
+    password: "<%= p('pipeline_api.authorization.password')%>"
+

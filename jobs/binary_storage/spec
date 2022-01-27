@@ -30,6 +30,14 @@ templates:
   config/keystone/etc/policy.v3cloudsample.json: config/keystone/etc/policy.v3cloudsample.json
   config/keystone/etc/sso_callback_template.html: config/keystone/etc/sso_callback_template.html
 
+  config/swift/account-server-1.conf: config/swift/account-server-1.conf
+  config/swift/container-server-1.conf: config/swift/container-server-1.conf
+  config/swift/object-server-1.conf: config/swift/object-server-1.conf
+  config/swift/proxy-server.conf: config/swift/proxy-server.conf
+  config/swift/remakerings: config/swift/remakerings
+  config/swift/rsyncd.conf: config/swift/rsyncd.conf
+  config/swift/swift.conf: config/swift/swift.conf
+
 packages:
   - python
   - swift-all-in-one
@@ -58,4 +66,6 @@ properties:
   mariadb.admin_user.password:
     description: MariaDB admin user password
     default: admin
-
+  cce_enable:
+    description: cce_patch.
+    default: false

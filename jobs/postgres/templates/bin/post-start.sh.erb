@@ -17,3 +17,21 @@ function main() {
 
 main
 
+<% if p('cce_enable') %>
+#CCE
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "update pg_database set datallowconn = true where datname = 'template0'"
+
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "show password_encryption"
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "select usename, passwd from pg_shadow"
+
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "\l"
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "\dn+"
+
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "REVOKE ALL ON SCHEMA public FROM PUBLIC"
+#sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d sonar -c "REVOKE ALL ON SCHEMA public FROM PUBLIC"
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d template0 -c "REVOKE ALL ON SCHEMA public FROM PUBLIC"
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d template1 -c "REVOKE ALL ON SCHEMA public FROM PUBLIC"
+
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "\l"
+sudo -u vcap /var/vcap/packages/postgres/bin/psql -p <%= p('postgres.port') %> -d postgres -c "\dn+"
+<% end %>

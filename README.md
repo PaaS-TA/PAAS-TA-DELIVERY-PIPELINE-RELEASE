@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip http://45.248.73.44/index.php/s/mZqcwwMDDKRHnZb/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/Lxd6QrMeQdZR6zd/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -136,23 +136,24 @@
         │   ├── jenkins.war  
         │   └── update_files.tar.gz  
         ├── mariadb  
-        │   └── mariadb-10.1.22-linux-x86_64.tar.gz  
+        │   └── mariadb-10.5.13-linux-x86_64.tar.gz
         ├── maven  
         │   └── apache-maven-3.5.0-bin.tar.gz  
         ├── postgres  
-        │   └── postgresql-9.6.5-1-linux-x64-binaries.tar.gz   
+        │   └── postgresql-11.14.tar.gz
         ├── python  
-        │   └── Python-2.7.8.tgz  
+        │   └── Python-3.6.9.tgz
         ├── sonarqube  
-        │   └── sonarqube-5.6.7.zip  
+        │   └── sonarqube-5.6.7-PaaS-TA.zip
         ├── sshpass  
         │   └── sshpass-1.06.tar.gz  
         └── swift-all-in-one  
-            └── swift-all-in-one.tar.gz  
+            ├── swift-2.23.2-bionic-dependencies.tar.gz
+            └── swift-2.23.2.tar.gz
     ```  
   - Create PaaS-TA Delivery Pipeline Release  
     ```  
-    ## <VERSION> :: release version (e.g. 1.0.2)
+    ## <VERSION> :: release version (e.g. 1.1.0)
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release-<VERSION>.tgz)
     $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
     ```  
