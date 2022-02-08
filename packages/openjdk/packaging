@@ -1,0 +1,9 @@
+# abort script on any command that exits with a non zero value
+set -e
+set -u
+
+cd openjdk
+find . -name "openjdk-*_linux-x64_bin.tar.gz" -exec tar zxf {} \;
+
+cp -a ${BOSH_COMPILE_TARGET}/openjdk/* ${BOSH_INSTALL_TARGET}
+

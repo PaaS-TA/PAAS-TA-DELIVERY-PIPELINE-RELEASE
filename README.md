@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/Lxd6QrMeQdZR6zd/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/PBrbiNkKWNJ6ras/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -107,11 +107,11 @@
         ├── cf-cli  
         │   └── cf-cli_6.26.0_linux_x86-64.tgz  
         ├── delivery-pipeline-api  
-        │   └── delivery-pipeline-api-1.0.2.war  
+        │   └── delivery-pipeline-api-1.0.3.war  
         ├── delivery-pipeline-binary-storage-api  
         │   └── delivery-pipeline-binary-storage-api.jar  
         ├── delivery-pipeline-common-api  
-        │   └── delivery-pipeline-common-api.jar  
+        │   └── delivery-pipeline-common-api-1.0.2.jar
         ├── delivery-pipeline-inspection-api  
         │   └── delivery-pipeline-inspection-api.jar  
         ├── delivery-pipeline-scheduler  
@@ -119,7 +119,7 @@
         ├── delivery-pipeline-service-broker  
         │   └── delivery-pipeline-service-broker.jar  
         ├── delivery-pipeline-ui  
-        │   └── delivery-pipeline-ui-1.0.1.war  
+        │   └── delivery-pipeline-ui-1.0.2.war  
         ├── git  
         │   └── git-2.9.3.tar.gz  
         ├── gradle  
@@ -127,18 +127,24 @@
         │   ├── gradle-3.5-bin.zip
         │   ├── gradle-4.10.3-bin.zip
         │   ├── gradle-5.6.4-bin.zip
-        │   └── gradle-6.7.1-bin.zip  
+        │   ├── gradle-6.7.1-bin.zip  
+        │   └── gradle-7.3.3-bin.zip          
         ├── haproxy  
         │   └── haproxy-1.6.5.tar.gz  
         ├── java  
         │   └── server-jre-8u121-linux-x64.tar.gz  
         ├── jenkins  
         │   ├── jenkins.war  
-        │   └── update_files.tar.gz  
+        │   └── update_files_1.2.0.tar.gz  
         ├── mariadb  
         │   └── mariadb-10.5.13-linux-x86_64.tar.gz
         ├── maven  
-        │   └── apache-maven-3.5.0-bin.tar.gz  
+        │   ├── apache-maven-3.5.0-bin.tar.gz          
+        │   ├── apache-maven-3.6.3-bin.tar.gz                  
+        │   └── apache-maven-3.8.4-bin.tar.gz  
+        ├── openjdk
+        │   ├── openjdk-11_linux-x64_bin.tar.gz
+        │   └── openjdk-17_linux-x64_bin.tar.gz
         ├── postgres  
         │   └── postgresql-11.14.tar.gz
         ├── python  
@@ -153,7 +159,7 @@
     ```  
   - Create PaaS-TA Delivery Pipeline Release  
     ```  
-    ## <VERSION> :: release version (e.g. 1.1.0)
+    ## <VERSION> :: release version (e.g. 1.2.0)
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release-<VERSION>.tgz)
     $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
     ```  

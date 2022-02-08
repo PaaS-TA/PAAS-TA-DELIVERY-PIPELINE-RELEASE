@@ -1,0 +1,12 @@
+---
+name: gradle
+
+dependencies: []
+
+files:
+- gradle/gradle-2.14.1-bin.zip
+- gradle/gradle-3.5-bin.zip
+- gradle/gradle-4.10.3-bin.zip
+- gradle/gradle-5.6.4-bin.zip
+- gradle/gradle-6.7.1-bin.zip
+- gradle/gradle-7.3.3-bin.zip 
