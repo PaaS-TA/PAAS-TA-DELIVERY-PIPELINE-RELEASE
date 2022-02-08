@@ -1,0 +1,7 @@
+set -e
+set -u
+
+cd gradle
+find . -name "gradle-*-bin.zip" -exec unzip {} \;
+
+cp -a ${BOSH_COMPILE_TARGET}/gradle/* ${BOSH_INSTALL_TARGET}

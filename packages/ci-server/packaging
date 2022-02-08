@@ -9,7 +9,7 @@ set -u # report the usage of uninitialized variables
 cp jenkins/jenkins.war $BOSH_INSTALL_TARGET/jenkins.war
 
 # UNCOMPRESS update files
-tar xzf jenkins/update_files.tar.gz
+tar xzf jenkins/update_files_1.2.0.tar.gz
 
 # COPY update files
 cp -a update_files ${BOSH_INSTALL_TARGET}

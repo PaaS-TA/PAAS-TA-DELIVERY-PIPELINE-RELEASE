@@ -1,0 +1,6 @@
+---
+name: openjdk
+dependencies: [] # no compile dependencies
+files:
+- openjdk/openjdk-11_linux-x64_bin.tar.gz
+- openjdk/openjdk-17_linux-x64_bin.tar.gz

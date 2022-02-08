@@ -3,11 +3,8 @@ name: ci_server
 
 packages:
   - java
-  - gradle-2.14.1
-  - gradle-3.5
-  - gradle-4.10.3
-  - gradle-5.6.4
-  - gradle-6.7.1
+  - openjdk
+  - gradle
   - git
   - cf-cli
   - maven

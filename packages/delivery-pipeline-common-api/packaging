@@ -1,9 +1,5 @@
 # abort script on any command that exits with a non zero value
 set -e
 
-JAR_DIR_NAME=delivery-pipeline-common-api
-JAR_NAME=delivery-pipeline-common-api
-#JAR_VERSION=1.0
-
-cp $JAR_DIR_NAME/$JAR_NAME.jar ${BOSH_INSTALL_TARGET}
+cp delivery-pipeline-common-api/delivery-pipeline-common-api*.jar ${BOSH_INSTALL_TARGET}/delivery-pipeline-common-api.jar
 

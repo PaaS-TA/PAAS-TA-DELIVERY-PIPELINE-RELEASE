@@ -3,20 +3,8 @@ set -e
 
 set -u # report the usage of uninitialized variables
 
-# Detect # of CPUs so make jobs can be parallelized
-CPUS=`grep -c ^processor /proc/cpuinfo`
+cd maven
+find . -name "apache-maven-*-bin.tar.gz" -exec tar zxf {} \;
 
-# We grab the latest versions that are in the directory
-MAVEN_VERSION=`ls -r maven/apache-maven-*-bin.tar.gz | sed 's/maven\/apache-maven-\(.*\)-bin\.tar\.gz/\1/' | head -1`
+cp -a ${BOSH_COMPILE_TARGET}/maven/* ${BOSH_INSTALL_TARGET}/
 
-# Extract Apache Maven package
-echo "Extracting Apache Maven ${MAVEN_VERSION}..."
-tar xzvf ${BOSH_COMPILE_TARGET}/maven/apache-maven-${MAVEN_VERSION}-bin.tar.gz
-if [[ $? != 0 ]] ; then
-  echo "Failed extracting Apache Maven ${MAVEN_VERSION}"
-  exit 1
-fi
-
-# Copy Apache Maven package
-echo "Copying Apache Maven ${MAVEN_VERSION}..."
-cp -a ${BOSH_COMPILE_TARGET}/apache-maven-${MAVEN_VERSION}/* ${BOSH_INSTALL_TARGET}/
