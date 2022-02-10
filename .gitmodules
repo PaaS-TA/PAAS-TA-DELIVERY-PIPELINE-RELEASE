@@ -1,0 +1,6 @@
+[submodule "src/delivery-pipeline-ui"]
+	path = src/delivery-pipeline-ui
+	url = https://github.com/PaaS-TA/DELIVERY-PIPELINE-UI
+[submodule "src/delivery-pipeline-api"]
+	path = src/delivery-pipeline-api
+	url = https://github.com/PaaS-TA/DELIVERY-PIPELINE-API

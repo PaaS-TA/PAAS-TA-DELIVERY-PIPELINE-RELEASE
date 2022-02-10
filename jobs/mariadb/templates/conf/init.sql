@@ -345,11 +345,11 @@ CREATE TABLE `user` (
 
 /*Data for the table `authority` */
 
-insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('b5307a8b-6e25-47f4-858b-24d32b247404','dashboard manager','관리자','dashboard','dashboard.manager',NULL);
-insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('b996ab40-29f6-4a4b-8439-530b69724247','read','보기권한','pipeline','read',NULL);
-insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('c10648f2-881a-4b1c-a449-c706734ab668','write','생성권한','pipeline','write',NULL);
-insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('ed537e6e-2f70-4d8f-a8c9-12b0f8eec09d','execute','실행권한','pipeline','execute',NULL);
-insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('f3f5b956-9d24-431a-9ab6-e55864e71179','dashboard user','사용자','dashboard','dashboard.user',NULL);
+insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('b5307a8b-6e25-47f4-858b-24d32b247404','dashboard manager','manager','dashboard','dashboard.manager',NULL);
+insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('b996ab40-29f6-4a4b-8439-530b69724247','read','read','pipeline','read',NULL);
+insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('c10648f2-881a-4b1c-a449-c706734ab668','write','write','pipeline','write',NULL);
+insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('ed537e6e-2f70-4d8f-a8c9-12b0f8eec09d','execute','execute','pipeline','execute',NULL);
+insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('f3f5b956-9d24-431a-9ab6-e55864e71179','dashboard user','user','dashboard','dashboard.user',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
