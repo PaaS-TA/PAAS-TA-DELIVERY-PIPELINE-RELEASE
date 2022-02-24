@@ -11,6 +11,7 @@ source /var/vcap/jobs/$JOB_NAME/helpers/ctl_setup.sh $JOB_NAME
 
 export PATH=/var/vcap/packages/git/bin:$PATH
 export PATH=/var/vcap/packages/cf-cli/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 #export PATH=/var/vcap/packages/bosh-cli/bin:$PATH
 #export GOROOT=$(readlink -nf /var/vcap/packages/golang1.3)
 #export PATH=$GOROOT/bin:$PATH

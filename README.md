@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/PBrbiNkKWNJ6ras/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/eHTwEcKbPnbN7Ar/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -107,11 +107,11 @@
         ├── cf-cli  
         │   └── cf-cli_6.26.0_linux_x86-64.tgz  
         ├── delivery-pipeline-api  
-        │   └── delivery-pipeline-api-1.0.3.war  
+        │   └── delivery-pipeline-api-1.0.4.war  
         ├── delivery-pipeline-binary-storage-api  
         │   └── delivery-pipeline-binary-storage-api.jar  
         ├── delivery-pipeline-common-api  
-        │   └── delivery-pipeline-common-api-1.0.2.jar
+        │   └── delivery-pipeline-common-api-1.0.3.jar
         ├── delivery-pipeline-inspection-api  
         │   └── delivery-pipeline-inspection-api.jar  
         ├── delivery-pipeline-scheduler  
@@ -119,7 +119,7 @@
         ├── delivery-pipeline-service-broker  
         │   └── delivery-pipeline-service-broker.jar  
         ├── delivery-pipeline-ui  
-        │   └── delivery-pipeline-ui-1.0.2.war  
+        │   └── delivery-pipeline-ui-1.0.3.war  
         ├── git  
         │   └── git-2.9.3.tar.gz  
         ├── gradle  
@@ -137,7 +137,7 @@
         │   ├── jenkins.war  
         │   └── update_files_1.2.0.tar.gz  
         ├── mariadb  
-        │   └── mariadb-10.5.13-linux-x86_64.tar.gz
+        │   └── mariadb-10.5.15-linux-x86_64.tar.gz
         ├── maven  
         │   ├── apache-maven-3.5.0-bin.tar.gz          
         │   ├── apache-maven-3.6.3-bin.tar.gz                  
@@ -159,7 +159,7 @@
     ```  
   - Create PaaS-TA Delivery Pipeline Release  
     ```  
-    ## <VERSION> :: release version (e.g. 1.2.0)
+    ## <VERSION> :: release version (e.g. 1.3.0)
     ## <RELEASE_TARBALL_PATH> :: release file path (e.g. /home/ubuntu/workspace/paasta-delivery-pipeline-release-<VERSION>.tgz)
     $ bosh -e <bosh_name> create-release --name=paasta-delivery-pipeline-release --version=<VERSION> --tarball=<RELEASE_TARBALL_PATH> --force
     ```  
