@@ -346,6 +346,40 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+/*Table structure for table `code` */
+
+DROP TABLE IF EXISTS `code`;
+
+CREATE TABLE `code` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code_type` varchar(255) NOT NULL,
+  `code_group` varchar(255) DEFAULT NULL,
+  `code_name` varchar(255) NOT NULL,
+  `code_value` varchar(255) NOT NULL,
+  `code_order` int DEFAULT 1,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `code` */
+
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('language_type', NULL,'JAVA', 'JAVA', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('language_type', NULL,'COMMAND', 'COMMAND', 999);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('language_type_version', 'JAVA','JAVA-8', 'java-1.8.152', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('language_type_version', 'JAVA','JAVA-11', 'jdk-11', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('language_type_version', 'JAVA','JAVA-17', 'jdk-17', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type', 'JAVA','GRADLE', 'GRADLE', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type', 'JAVA','MAVEN', 'MAVEN', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'GRADLE','GRADLE-3', 'gradle-3.5.1', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'GRADLE','GRADLE-4', 'gradle-4.10.3', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'GRADLE','GRADLE-5', 'gradle-5.6.4', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'GRADLE','GRADLE-6', 'gradle-6.7.1', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'GRADLE','GRADLE-7', 'gradle-7.3.3', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'MAVEN','MAVEN-3.5', 'maven-3.5.0', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'MAVEN','MAVEN-3.6', 'maven-3.6.3', 1);
+insert  into `code`(`code_type`,`code_group`,`code_name`,`code_value`,`code_order`) values ('builder_type_version', 'MAVEN','MAVEN-3.8', 'maven-3.8.4', 1);
+
 /*Data for the table `authority` */
 
 insert  into `authority`(`id`,`description`,`display_name`,`auth_type`,`code`,`auth_code`) values ('b5307a8b-6e25-47f4-858b-24d32b247404','dashboard manager','관리자','dashboard','dashboard.manager',NULL);
