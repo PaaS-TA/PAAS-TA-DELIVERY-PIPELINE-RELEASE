@@ -4,4 +4,4 @@ name: postgres
 dependencies: [] # no compile dependencies
 
 files:
-  - postgres/postgresql-11.14.tar.gz
+  - postgres/postgresql-11.16.tar.gz
