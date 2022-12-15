@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/TcCscDTorHxQoTt/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/wqgt6qbp5Nj25Xf/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -119,7 +119,7 @@
         ├── delivery-pipeline-service-broker  
         │   └── delivery-pipeline-service-broker.jar  
         ├── delivery-pipeline-ui  
-        │   └── delivery-pipeline-ui-1.0.3.war  
+        │   └── delivery-pipeline-ui-1.0.4.war  
         ├── git  
         │   └── git-2.9.3.tar.gz  
         ├── gradle  
