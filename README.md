@@ -97,7 +97,7 @@
   - Download & Copy "source files" into the src directory  
     ```  
     ## download source files
-    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/wqgt6qbp5Nj25Xf/download
+    $ wget -O src.zip https://nextcloud.paas-ta.org/index.php/s/ze9xyigrNgsZQHw/download
 
     ## unzip download source files
     $ unzip src.zip  
@@ -154,8 +154,7 @@
         ├── sshpass  
         │   └── sshpass-1.06.tar.gz  
         └── swift-all-in-one  
-            ├── swift-2.23.2-bionic-dependencies.tar.gz
-            └── swift-2.23.2.tar.gz
+            └── swift-2.31.1.tar.gz
     ```  
   - Create PaaS-TA Delivery Pipeline Release  
     ```  
