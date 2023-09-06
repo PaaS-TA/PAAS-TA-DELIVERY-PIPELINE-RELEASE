@@ -11,7 +11,7 @@ set -e
 #echo "Copying postgres ${SRC_NAME}..."
 #cp -a ${BOSH_COMPILE_TARGET}/pgsql/* ${BOSH_INSTALL_TARGET}
 
-POSTGRESQL_VERSION=11.17
+POSTGRESQL_VERSION=11.20
 
 cd postgres
 tar xfz postgresql-${POSTGRESQL_VERSION}.tar.gz
